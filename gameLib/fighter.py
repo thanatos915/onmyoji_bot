@@ -72,25 +72,38 @@ class Fighter:
         # 点击怪物
         pass
 
-    def click_team(self):
+    def click_team(self, mode=1):
+        """
+        标记式神
+            :param mode 标记场景类型 1：御魂 2: 突破
+        """
         # 标记式神
-        print(self.team_id)
         if self.team and self.team_id > 0:
-            #100 1040
-            #125 50
-            min = (self.team_id - 1) * 86 + (self.team_id - 1) * 100 + 110
-            max = min + 100
-            pos = (min, 330), (max, 445)
-            self.yys.mouse_click_bg(*pos)
-
+            # 100 1040
+            # 125 50
+            if mode == 1:
+                # 御魂场景获取标记位置
+                min = (self.team_id - 1) * 86 + (self.team_id - 1) * 100 + 110
+                max = min + 100
+                pos = (min, 340), (max, 425)
+            elif mode == 2:
+                # 突破场景获取标记位置
+                pos = {
+                    1: ((79, 385), (142, 418)),
+                    2: ((315, 335), (360, 358)),
+                    3: ((523, 270), (570, 325)),
+                    4: ((715, 340), (750, 380)),
+                    5: ((955, 400), (1055, 430)),
+                }.get(self.team_id)
             start_time = time.time()
             while time.time() - start_time <= 3 and self.run:
-                x1 = pos[0][0] - 50
-                y1 = pos[0][1] - 150
+                x1 = pos[0][0] - 100
+                y1 = pos[0][1] - 250
                 x2 = pos[1][0] + 100
                 y2 = pos[1][1]
                 exp_pos = self.yys.find_color(
-                    ((x1, y1), (x2, y2)), (140, 122, 44), 2)
+                    ((x1, y1), (x2, y2)), (140, 122, 44), 6)
+                print('颜色位置', exp_pos)
                 if exp_pos != -1:
                     self.log.writeinfo(self.name + ' 标记式神成功')
                     return True
@@ -98,9 +111,9 @@ class Fighter:
                     # 点击指定位置并等待下一轮
                     self.yys.mouse_click_bg(*pos)
                     self.log.writeinfo(self.name + '标记式神')
-                time.sleep(0.3)
-            self.log.writewarning(self.name + '标记式神失败')
+                    time.sleep(0.3)
 
+            self.log.writewarning(self.name + '标记式神失败')
 
     def click_until(self, tag, img_path, pos, pos_end=None, step_time=0.5, appear=True):
         '''
@@ -115,7 +128,7 @@ class Fighter:
         '''
         # 在指定时间内反复监测画面并点击
         start_time = time.time()
-        while time.time()-start_time <= self.max_op_time and self.run:
+        while time.time() - start_time <= self.max_op_time and self.run:
             result = self.yys.find_game_img(img_path)
             if not appear:
                 result = not result
@@ -195,7 +208,7 @@ class Fighter:
 
                 # 点击探索灯笼进入探索界面
                 self.click_until('探索灯笼', 'img/JUE-XING.png', *
-                                 TansuoPos.tansuo_denglong, 2)
+                TansuoPos.tansuo_denglong, 2)
 
                 # 递归
                 self.switch_to_scene(scene)

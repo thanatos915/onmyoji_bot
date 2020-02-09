@@ -20,11 +20,12 @@ class Mood:
         self.lastime = time.time()
         self.state = state
         Mood.mymood = {
-            1: (1000, 500),
-            2: (1300, 800),
-            3: (1800, 1200),
-            4: (2500, 1500),
-            5: (3000, 2000)}
+            1: (800, 400),
+            2: (1100, 800),
+            3: (1600, 1100),
+            4: (2000, 1600),
+            5: (3000, 2000)
+        }
         a = random.randint(1, self.state)
         log.writeinfo("Now you mood is level %d", a)
         self.lastmood = Mood.mymood[a]
@@ -53,7 +54,7 @@ def firstposition():
     h = 640
     while True:
         position = (random.randint(0, w), random.randint(50, h))
-        if position[0] < 332 or position[0] > 931:
+        if position[0] < 209 or position[0] > 931:
             return position
         elif position[1] < 350 or position[1] > 462:
             return position
@@ -73,6 +74,9 @@ def secondposition():
         elif position[1] < 112:
             return position
     '''
+
+def threeposition():
+    return (random.randint(50, 213), random.randint(130, 480))
 
 
 def mysleep(slpa, slpb=0):

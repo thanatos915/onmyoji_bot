@@ -5,6 +5,7 @@ class GamePos():
 
 class CommonPos():
     second_position = (943, 56), (1111, 452)  # 第二次结算所点击的位置
+    zhunbei_btn = (935, 465), (1080, 530)
 
 class TansuoPos():
     last_chapter = (934, 493), (1108, 572)  # 列表最后一章
@@ -17,12 +18,20 @@ class TansuoPos():
     change_monster = (427, 419), (457, 452)  # 切换狗粮点击区域
     quanbu_btn = (37, 574), (80, 604)  # “全部”按钮
     n_tab_btn = (142, 288), (164, 312)  # n卡标签
+    s_tab_btn = (41, 272), (87, 303)  # n卡标签
+    r_tab_btn = (221, 327), (259, 362)  # n卡标签
     n_slide = (168, 615), (784, 615)  # n卡进度条，从头至尾
     quit_change_monster=GamePos((19,17),(43,38)) #退出换狗粮界面
     gouliang_middle = (397, 218), (500, 349)  # 中间狗粮位置
     gouliang_right = (628, 293), (730, 430)  # 右边狗粮位置
+    jie_shou_btn = (107, 203), (143, 251)  # 接受探索邀请
+    gouliang_exp_passenger = (191, 134), (725, 470)  # 打手 狗粮查找位置
+    gouliang_exp_driver = (1, 258), (547, 537)  # 打手 狗粮查找位置
 
 
 class YuhunPos():
     tiaozhan_btn = (995, 533), (1055, 595)    # 御魂挑战按钮
     kaishizhandou_btn = (1048, 535), (1113, 604)   # 御魂开始战斗按钮
+
+class TuPoPos():
+    refresh_btn = (860, 460), (1000, 500) # 结界刷新按钮

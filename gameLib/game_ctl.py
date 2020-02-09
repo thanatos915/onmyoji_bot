@@ -121,8 +121,10 @@ class GameControl():
             :param tolerance=0: 容差值
             :return: 成功返回客户区坐标，失败返回-1
         """
-        img = Image.fromarray(self.window_part_shot(
-            region[0], region[1]), 'RGB')
+        img_src = self.window_part_shot(
+            region[0], region[1])
+        img = Image.fromarray(img_src, 'RGB')
+        cv2.imwrite('img/{0}_color.png'.format(time.time()), img_src)
         width, height = img.size
         r1, g1, b1 = color[:3]
         for x in range(width):
@@ -182,7 +184,7 @@ class GameControl():
             res = cv2.matchTemplate(
                 img_src, img_template, cv2.TM_CCOEFF_NORMED)
             minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(res)
-            print(maxVal, maxLoc)
+            # print(maxVal, maxLoc, img_template_path)
             return maxVal, maxLoc
         except:
             return 0, 0
@@ -302,6 +304,7 @@ class GameControl():
                 pos[0], pos_end[0]), random.randint(pos[1], pos_end[1]))
             win32gui.SendMessage(self.hwnd, win32con.WM_MOUSEMOVE,
                                  0, win32api.MAKELONG(pos_rand[0], pos_rand[1]))
+            print(pos_rand)
             win32gui.SendMessage(self.hwnd, win32con.WM_LBUTTONDOWN, 0, win32api.MAKELONG(
                 pos_rand[0], pos_rand[1]))
             time.sleep(random.randint(20, 80)/1000)
@@ -318,6 +321,40 @@ class GameControl():
         move_y = np.linspace(pos1[1], pos2[1], num=20, endpoint=True)[0:]
         win32gui.SendMessage(self.hwnd, win32con.WM_LBUTTONDOWN,
                              0, win32api.MAKELONG(pos1[0], pos1[1]))
+        for i in range(20):
+            x = int(round(move_x[i]))
+            y = int(round(move_y[i]))
+            win32gui.SendMessage(
+                self.hwnd, win32con.WM_MOUSEMOVE, 0, win32api.MAKELONG(x, y))
+            time.sleep(0.1)
+        win32gui.SendMessage(self.hwnd, win32con.WM_LBUTTONUP,
+                             0, win32api.MAKELONG(pos2[0], pos2[1]))
+
+    def mouse_drag_shishen_bg(self, pos1, pos2):
+        """
+        更换式神拽
+            :param pos1: (x,y) 起点坐标
+            :param pos2: (x,y) 终点坐标
+        """
+        # 中间过渡点
+        pos3 = [pos1[0], pos2[1] - 100]
+
+        win32gui.SendMessage(self.hwnd, win32con.WM_LBUTTONDOWN,
+                             0, win32api.MAKELONG(pos1[0], pos1[1]))
+
+        move_x = np.linspace(pos1[0], pos3[0], num=20, endpoint=True)[0:]
+        move_y = np.linspace(pos1[1], pos3[1], num=20, endpoint=True)[0:]
+
+        for i in range(10):
+            x = int(round(move_x[i]))
+            y = int(round(move_y[i]))
+            win32gui.SendMessage(
+                self.hwnd, win32con.WM_MOUSEMOVE, 0, win32api.MAKELONG(x, y))
+            time.sleep(0.01)
+
+        move_x = np.linspace(pos3[0], pos2[0], num=20, endpoint=True)[0:]
+        move_y = np.linspace(pos3[1], pos2[1], num=20, endpoint=True)[0:]
+
         for i in range(20):
             x = int(round(move_x[i]))
             y = int(round(move_y[i]))
@@ -403,7 +440,7 @@ class GameControl():
             return True
         return False
 
-    def find_game_img(self, img_path, part=0, pos1=None, pos2=None, gray=0):
+    def find_game_img(self, img_path, part=0, pos1=None, pos2=None, gray=0, tolerance=0.97):
         '''
         查找图片
             :param img_path: 查找路径
@@ -415,8 +452,8 @@ class GameControl():
         '''
         self.rejectbounty()
         maxVal, maxLoc = self.find_img(img_path, part, pos1, pos2, gray)
-        # print(maxVal)
-        if maxVal > 0.97:
+        print("查询图片", maxVal)
+        if maxVal > tolerance:
             return maxLoc
         else:
             return False
@@ -446,7 +483,6 @@ class GameControl():
         self.debug_enable = False
 
 # 测试用
-
 
 def show_img(img):
     cv2.imshow("image", img)

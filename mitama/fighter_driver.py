@@ -19,6 +19,7 @@ class DriverFighter(Fighter):
         mood1 = ut.Mood()
         mood2 = ut.Mood()
         mood3 = ut.Mood(3)
+        mood4 = ut.Mood(4)
 
         # 战斗主循环
         self.yys.wait_game_img('img\\KAI-SHI-ZHAN-DOU.png',
@@ -26,7 +27,7 @@ class DriverFighter(Fighter):
 
         while self.run:
             # 司机点击开始战斗，需要锁定御魂阵容
-            mood1.moodsleep()
+            mood4.moodsleep()
             self.log.writeinfo('Driver: 点击开始战斗按钮')
             self.click_until('开始战斗按钮', 'img\\ZI-DONG.png', *
                              YuhunPos.kaishizhandou_btn, mood2.get1mood()/1000)
