@@ -3,6 +3,7 @@ import os
 import ctypes
 
 from explore.explore import ExploreFight
+from explore.passenger_explore import PassengerExplore
 from mitama.fighter_driver import DriverFighter
 from mitama.fighter_passenger import FighterPassenger
 from mitama.single_fight import SingleFight
@@ -27,6 +28,7 @@ def init():
     global team
 
     try:
+        team = 0
         # 选择打什么
         section = int(input('\n选择刷什么(Ctrl-C跳过并单刷御魂：\n0-御魂\n1-探索\n2-突破\n'))
         log.writeinfo('Section = %d', section)
@@ -100,14 +102,19 @@ def yuhun():
 
 def tansuo():
     '''探索战斗'''
+    print(mode)
     if mode == 0:
         # 单刷
         fight = ExploreFight()
         fight.start()
     if mode == 3:
         # 乘客
-        fight = FighterPassenger()
-        fight.start()
+        try:
+            fight = PassengerExplore()
+            fight.start()
+        except Exception as e:
+            print(e)
+            os.system('pause')
 
 
 def tupo():
@@ -127,22 +134,26 @@ if __name__ == "__main__":
         if is_admin():
             # 注册插件，获取权限
             log.writeinfo('UAC pass')
+            try:
 
-            # 设置战斗参数
-            init()
-            conf = configparser.ConfigParser()
-            # 读取配置文件
-            conf.read('conf.ini', encoding="utf-8")
-            conf.set('others', 'team', str(team > 0))
-            conf.set('others', 'team_id', str(team))
+                # 设置战斗参数
+                init()
+                conf = configparser.ConfigParser()
+                # 读取配置文件
+                conf.read('conf.ini', encoding="utf-8")
+                conf.set('others', 'team', str(team > 0))
+                conf.set('others', 'team_id', str(team))
 
-            # 开始战斗
-            if section == 0:
-                yuhun()
-            elif section == 1:
-                tansuo()
-            elif section == 2:
-                tupo()
+                # 开始战斗
+                if section == 0:
+                    yuhun()
+                elif section == 1:
+                    tansuo()
+                elif section == 2:
+                    tupo()
+            except Exception as e:
+                print(e)
+                os.system('pause')
 
         else:
             ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)

@@ -103,7 +103,7 @@ class Fighter:
                 y2 = pos[1][1]
                 exp_pos = self.yys.find_color(
                     ((x1, y1), (x2, y2)), (140, 122, 44), 6)
-                print('颜色位置', exp_pos)
+                # print('颜色位置', exp_pos)
                 if exp_pos != -1:
                     self.log.writeinfo(self.name + ' 标记式神成功')
                     return True
@@ -114,6 +114,34 @@ class Fighter:
                     time.sleep(0.3)
 
             self.log.writewarning(self.name + '标记式神失败')
+
+    def click_until_multi(self, tag, *img_path, pos , pos_end=None, sleep_time=0.5):
+        '''
+        在某一时间段内，后台点击鼠标，直到出现某些图片出现
+            :param tag: 按键名
+            :param img_path: 图片路径
+            :param pos: (x,y) 鼠标单击的坐标
+            :param pos_end=None: (x,y) 若pos_end不为空，则鼠标单击以pos为左上角坐标pos_end为右下角坐标的区域内的随机位置
+            :step_time=0.5: 查询间隔
+            :return: 成功返回True, 失败退出游戏
+        '''
+        start_time = time.time()
+        while time.time() - start_time <= self.max_op_time and self.run:
+            result = self.yys.find_multi_game_img(*img_path)
+            if result:
+                self.log.writeinfo(self.name + '点击 ' + tag + ' 成功')
+                return True
+            else:
+                # 点击指定位置并等待下一轮
+                self.yys.mouse_click_bg(pos, pos_end)
+                self.log.writeinfo(self.name + '点击 ' + tag)
+            time.sleep(sleep_time)
+        self.log.writewarning(self.name + '点击 ' + tag + ' 失败!')
+
+        # 提醒玩家点击失败，并在5s后退出
+        self.yys.activate_window()
+        time.sleep(5)
+        self.yys.quit_game()
 
     def click_until(self, tag, img_path, pos, pos_end=None, step_time=0.5, appear=True):
         '''

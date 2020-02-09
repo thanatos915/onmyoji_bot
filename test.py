@@ -93,12 +93,16 @@ def is_admin():
 # else:
 #     shi_shen_pos = -1
 # print(shi_shen_pos)
-
+# hwnd = win32gui.FindWindow(0, u'阴阳师-网易游戏')
+# yys = GameControl(hwnd)
+# maxVal, maxLoc = yys.find_img('img/PROGESS.png')
+# print(maxVal, maxLoc)
+#
 try:
     # 检测管理员权限
     if is_admin():
-        yys = Boundary()
-        yys.start()
+        yys = PassengerExplore()
+        yys.check_exp_full()
     else:
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
 except KeyboardInterrupt:

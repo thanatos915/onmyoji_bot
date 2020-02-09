@@ -52,10 +52,10 @@ class PassengerExplore(Fighter):
         """
         检查狗粮经验
         """
+        self.log.writeinfo(self.name + '开始检测狗粮经验状态')
         maxVal, maxLoc = self.yys.find_multi_img('img/MAN3.png', 'img/MAN1.png', 'img/MAN2.png', part=1,
                                                  pos1=TansuoPos.gouliang_exp_passenger[0], pos2=TansuoPos.gouliang_exp_passenger[1], gray=1)
         posV1, posV2, posV3 = maxVal
-        print(maxVal)
         gouliang1 = posV1 > 0.97 and self.gouliang1
         gouliang2 = posV2 > 0.97 and self.gouliang2
         gouliang3 = posV3 > 0.97 and self.gouliang3
@@ -80,8 +80,22 @@ class PassengerExplore(Fighter):
 
         if gouliang3:
             pos.append((187, 315))
+
         print('需要更换式神', pos)
-        return self.check_gouliang_level(pos)
+        down = False
+        while not down:
+            res = self.check_gouliang_level(pos)
+            print(res)
+            if res == 2:
+                down = True
+            elif res == -1:
+                # 当前所有式神满街更换等级式神
+                self.level += 1
+                if self.level >= 4:
+                    self.log.writewarning('暂无式神进行更换')
+                    self.yys.quit_game()
+
+        return True
 
     def check_gouliang_level(self, replace_pos):
         """
@@ -114,6 +128,12 @@ class PassengerExplore(Fighter):
         shi_shen_pos = 0
         while not down and shi_shen_pos >= 0:
             if number >= 8:
+                # 检查当前进度条是否到顶
+                maxVal, maxLoc = self.yys.find_img('img/PROGESS.png')
+                # print("滚动条位置", maxVal)
+                if maxVal > 0.97 and maxLoc[0] >= 744:
+                    # 当前进度条已经到顶更换等级再来
+                    return -1
                 # 调整进度条重新获取截取
                 # 拖动的位置
                 x1 = (96 + 15) * (number - 2) + 50 + part_pos_start[0]
@@ -124,6 +144,7 @@ class PassengerExplore(Fighter):
                 self.yys.mouse_drag_bg((x1, y1), (x2, y1))
                 time.sleep(0.5)
                 img_src = self.yys.window_part_shot(part_pos_start, part_pos_end)
+
                 # new_img = img_src[0:208, 333:456]
                 # # 检查是否满级
                 # tml_img = cv2.imread('img/SHI-SHEN-MAN.png')
@@ -161,7 +182,7 @@ class PassengerExplore(Fighter):
             res = cv2.matchTemplate(new_img, tml_img, cv2.TM_CCOEFF_NORMED)
             minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(res)
             print('满级测试', maxVal)
-            if maxVal > 0.97:
+            if maxVal > 0.93:
                 print("式神{0}：已满级".format(number))
                 number += 1
                 continue
@@ -209,7 +230,8 @@ class PassengerExplore(Fighter):
                 shi_shen_pos = next_index
             else:
                 shi_shen_pos = -1
-        return True
+
+        return 2
 
 
     def start(self):
@@ -236,12 +258,14 @@ class PassengerExplore(Fighter):
                 is_team = False
                 # 是否再探索页面中
                 is_tansuo = False
+                # 是否在探索中
+                is_juexing = False
                 start = time.time()
-                while time.time() - start <= 2 and not is_start and self.run:
-                    maxVal, maxLoc = self.yys.find_multi_img('img/ZHUN-BEI.png', 'img/DUI.png', 'img/YING-BING.png')
-                    print('检测图片', maxVal)
-                    startVal, teamVal, tanVal = maxVal
-
+                self.log.writeinfo(self.name + '正在检测当前场景')
+                while time.time() - start <= 2.5 and not is_start and self.run:
+                    maxVal, maxLoc = self.yys.find_multi_img('img/ZHUN-BEI.png', 'img/DUI.png', 'img/YING-BING.png', 'img/JUE-XING.png')
+                    startVal, teamVal, tanVal, tuVal = maxVal
+                    # print(maxVal)
                     if startVal > 0.97:
                         # 当前正在战斗中
                         is_start = True
@@ -249,6 +273,11 @@ class PassengerExplore(Fighter):
                     is_team = teamVal > 0.97
                     # 是否在副本中
                     is_tansuo = tanVal > 0.97
+
+
+                if tuVal > 0.97:
+                    isRun = False
+                    break
 
                 if not is_start and not is_team and is_tansuo:
                     # 队伍解散 退出副本
@@ -262,7 +291,8 @@ class PassengerExplore(Fighter):
                     self.check_exp_full()
 
                     # 点击准备，直到进入战斗
-                    self.click_until('准备按钮', 'img\\ZI-DONG.png', *TansuoPos.ready_btn, mood1.get1mood() / 1000)
+                    self.click_until_multi('准备按钮', 'img/YI-ZHUN-BEI.png', 'img/ZI-DONG.png',
+                                           pos=TansuoPos.ready_btn[0], pos_end=TansuoPos.ready_btn[1], sleep_time=mood1.get1mood() / 1000)
 
                     # 检查战斗是否结束
                     self.check_end()

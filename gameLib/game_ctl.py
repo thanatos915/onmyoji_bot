@@ -304,7 +304,7 @@ class GameControl():
                 pos[0], pos_end[0]), random.randint(pos[1], pos_end[1]))
             win32gui.SendMessage(self.hwnd, win32con.WM_MOUSEMOVE,
                                  0, win32api.MAKELONG(pos_rand[0], pos_rand[1]))
-            print(pos_rand)
+            # print(pos_rand)
             win32gui.SendMessage(self.hwnd, win32con.WM_LBUTTONDOWN, 0, win32api.MAKELONG(
                 pos_rand[0], pos_rand[1]))
             time.sleep(random.randint(20, 80)/1000)
@@ -452,11 +452,28 @@ class GameControl():
         '''
         self.rejectbounty()
         maxVal, maxLoc = self.find_img(img_path, part, pos1, pos2, gray)
-        print("查询图片", maxVal)
+        # print("查询图片", maxVal)
         if maxVal > tolerance:
             return maxLoc
         else:
             return False
+
+    def find_multi_game_img(self, *img_path, part=0, pos1=None, pos2=None, gray=0, tolerance=0.97):
+        '''
+        查找多张图片
+            :param img_path: 查找路径
+            :param part=0: 是否全屏查找，0为否，其他为是
+            :param pos1=None: 欲查找范围的左上角坐标
+            :param pos2=None: 欲查找范围的右下角坐标
+            :param gray=0: 是否查找黑白图片，0：查找彩色图片，1：查找黑白图片
+            :return: 查找成功返回位置坐标，否则返回False
+        '''
+        maxVal, maxLoc = self.find_multi_img(*img_path)
+        for item in maxVal:
+            if item > tolerance:
+                return maxLoc
+
+        return False
 
     def debug(self):
         '''

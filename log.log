@@ -1,31 +1,4 @@
-Sun, 09 Feb 2020 21:02:50  logsystem.py  [line:20]  INFO  python version: 3.7.6 (tags/v3.7.6:43364a7ae0, Dec 19 2019, 00:42:30) [MSC v.1916 64 bit (AMD64)]
-Sun, 09 Feb 2020 21:02:50  logsystem.py  [line:20]  INFO  UAC pass
-Sun, 09 Feb 2020 21:02:51  logsystem.py  [line:20]  INFO  Use default parameters
-Sun, 09 Feb 2020 21:02:51  logsystem.py  [line:20]  INFO  Boundary: 绑定窗口成功
-Sun, 09 Feb 2020 21:02:51  logsystem.py  [line:20]  INFO  Boundary: 1705586
-Sun, 09 Feb 2020 21:02:51  logsystem.py  [line:20]  INFO  Boundary: 激活窗口成功
-Sun, 09 Feb 2020 21:02:52  logsystem.py  [line:20]  INFO  Now you mood is level 3
-Sun, 09 Feb 2020 21:02:52  logsystem.py  [line:20]  INFO  Boundary: 选择突破对象成功
-Sun, 09 Feb 2020 21:02:52  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:02:53  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:02:54  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:02:55  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:02:56  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:02:57  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:02:58  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:02:59  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:00  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:01  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:01  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:02  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:03  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:04  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:05  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:06  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:07  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:08  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:09  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:10  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:11  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:12  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Sun, 09 Feb 2020 21:03:13  logsystem.py  [line:23]  WARNING  Boundary: 点击 开始进攻 失败!
+Mon, 10 Feb 2020 00:03:38  logsystem.py  [line:20]  INFO  Passenger: 绑定窗口成功
+Mon, 10 Feb 2020 00:03:38  logsystem.py  [line:20]  INFO  Passenger: 1705586
+Mon, 10 Feb 2020 00:03:38  logsystem.py  [line:20]  INFO  Passenger: 激活窗口成功
+Mon, 10 Feb 2020 00:03:39  logsystem.py  [line:20]  INFO  Passenger: 开始检测狗粮经验状态
