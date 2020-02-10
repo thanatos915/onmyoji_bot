@@ -35,3 +35,4 @@ class YuhunPos():
 
 class TuPoPos():
     refresh_btn = (860, 460), (1000, 500) # 结界刷新按钮
+    refresh_sure_btn = (605, 365), (745, 400)

@@ -1,4 +1,13 @@
-Mon, 10 Feb 2020 00:03:38  logsystem.py  [line:20]  INFO  Passenger: 绑定窗口成功
-Mon, 10 Feb 2020 00:03:38  logsystem.py  [line:20]  INFO  Passenger: 1705586
-Mon, 10 Feb 2020 00:03:38  logsystem.py  [line:20]  INFO  Passenger: 激活窗口成功
-Mon, 10 Feb 2020 00:03:39  logsystem.py  [line:20]  INFO  Passenger: 开始检测狗粮经验状态
+Mon, 10 Feb 2020 16:20:12  logsystem.py  [line:20]  INFO  Boundary: 绑定窗口成功
+Mon, 10 Feb 2020 16:20:12  logsystem.py  [line:20]  INFO  Boundary: 66688
+Mon, 10 Feb 2020 16:20:12  logsystem.py  [line:20]  INFO  Boundary: 激活窗口成功
+Mon, 10 Feb 2020 16:20:13  logsystem.py  [line:20]  INFO  Now you mood is level 1
+Mon, 10 Feb 2020 16:20:13  logsystem.py  [line:20]  INFO  Boundary: 点击 选择突破对象
+Mon, 10 Feb 2020 16:20:14  logsystem.py  [line:20]  INFO  Boundary: 选择突破对象成功
+Mon, 10 Feb 2020 16:20:14  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
+Mon, 10 Feb 2020 16:20:15  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
+Mon, 10 Feb 2020 16:20:16  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
+Mon, 10 Feb 2020 16:20:17  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
+Mon, 10 Feb 2020 16:20:18  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
+Mon, 10 Feb 2020 16:20:19  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
+Mon, 10 Feb 2020 16:20:20  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻

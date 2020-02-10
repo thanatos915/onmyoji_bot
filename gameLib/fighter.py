@@ -83,9 +83,9 @@ class Fighter:
             # 125 50
             if mode == 1:
                 # 御魂场景获取标记位置
-                min = (self.team_id - 1) * 86 + (self.team_id - 1) * 100 + 110
-                max = min + 100
-                pos = (min, 340), (max, 425)
+                min = (self.team_id - 1) * 105 + (self.team_id - 1) * 100 + 95
+                max = min + 50
+                pos = (min, 355), (max, 425)
             elif mode == 2:
                 # 突破场景获取标记位置
                 pos = {
@@ -102,7 +102,7 @@ class Fighter:
                 x2 = pos[1][0] + 100
                 y2 = pos[1][1]
                 exp_pos = self.yys.find_color(
-                    ((x1, y1), (x2, y2)), (140, 122, 44), 6)
+                    ((x1, y1), (x2, y2)), (134, 227, 96), 5)
                 # print('颜色位置', exp_pos)
                 if exp_pos != -1:
                     self.log.writeinfo(self.name + ' 标记式神成功')
@@ -111,7 +111,7 @@ class Fighter:
                     # 点击指定位置并等待下一轮
                     self.yys.mouse_click_bg(*pos)
                     self.log.writeinfo(self.name + '标记式神')
-                    time.sleep(0.3)
+                    time.sleep(0.4)
 
             self.log.writewarning(self.name + '标记式神失败')
 

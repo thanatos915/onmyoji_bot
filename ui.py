@@ -1,4 +1,5 @@
 from explore.explore import ExploreFight
+from boundary.boundary import Boundary
 from goryou.single_fight import GoryouFight
 from mitama.dual import DualFighter
 from mitama.fighter_driver import DriverFighter
@@ -127,6 +128,8 @@ class MyMainWindow(QMainWindow):
         elif section == 2:
             # 探索
             self.fight = ExploreFight()
+        elif section == 3:
+            self.fight = Boundary()
 
         task = threading.Thread(target=self.fight.start)
         task.start()

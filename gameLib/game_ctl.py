@@ -124,7 +124,7 @@ class GameControl():
         img_src = self.window_part_shot(
             region[0], region[1])
         img = Image.fromarray(img_src, 'RGB')
-        cv2.imwrite('img/{0}_color.png'.format(time.time()), img_src)
+        # cv2.imwrite('img/{0}_color.png'.format(time.time()), img_src)
         width, height = img.size
         r1, g1, b1 = color[:3]
         for x in range(width):

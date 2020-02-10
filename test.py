@@ -1,6 +1,7 @@
 import ctypes
 import os
 import sys
+import time
 
 from PIL import Image
 
@@ -21,6 +22,27 @@ def is_admin():
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
         return False
+
+img_src = cv2.imread('img/1581315668.159217_color.png')
+# 140 185
+# 150 195
+new_img = img_src[192:200, 140:145]
+img = Image.fromarray(new_img, 'RGB')
+# cv2.imwrite('img/{0}_color.png'.format(time.time()), img_src)
+width, height = img.size
+print(width,height)
+tolerance = 20
+r1, g1, b1 = (134, 227, 96)
+for x in range(width):
+    for y in range(height):
+        try:
+            pixel = img.getpixel((x, y))
+            r2, g2, b2 = pixel[:3]
+            print(r2,g2,b2)
+            if abs(r1 - r2) <= tolerance and abs(g1 - g2) <= tolerance and abs(b1 - b2) <= tolerance:
+               print(x, y)
+        except:
+            print('err')
 
 # img_src = cv2.imread('img/1581224732.8175466_color.png')
 # img = Image.fromarray(img_src, 'RGB')
@@ -98,18 +120,18 @@ def is_admin():
 # maxVal, maxLoc = yys.find_img('img/PROGESS.png')
 # print(maxVal, maxLoc)
 #
-try:
-    # 检测管理员权限
-    if is_admin():
-        yys = PassengerExplore()
-        yys.check_exp_full()
-    else:
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
-except KeyboardInterrupt:
-    print('err')
-    os.system('pause')
-else:
-    os.system('pause')
+# try:
+#     # 检测管理员权限
+#     if is_admin():
+#         yys = PassengerExplore()
+#         yys.check_exp_full()
+#     else:
+#         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
+# except KeyboardInterrupt:
+#     print('err')
+#     os.system('pause')
+# else:
+#     os.system('pause')
 
 
 # img_src = cv2.imread('img/full.png')

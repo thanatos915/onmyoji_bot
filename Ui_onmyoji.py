@@ -154,6 +154,20 @@ class Ui_MainWindow(object):
         self.line_4.setObjectName("line_4")
         self.gridLayout_5.addWidget(self.line_4, 2, 0, 1, 1)
         self.tabWidget.addTab(self.tab_2, "")
+
+        # 突破
+        self.tab_tu = QtWidgets.QWidget()
+        self.tab_tu.setObjectName("tab_tu")
+        self.gridLayout_tu = QtWidgets.QGridLayout(self.tab_tu)
+        self.gridLayout_tu.setObjectName("gridLayout_tu")
+        self.plainTextEdit_tu = QtWidgets.QPlainTextEdit(self.tab_tu)
+        self.plainTextEdit_tu.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.plainTextEdit_tu.setReadOnly(True)
+        self.plainTextEdit_tu.setObjectName("plainTextEdit")
+        self.gridLayout_tu.addWidget(self.plainTextEdit_tu, 0, 0, 1, 1)
+        self.tabWidget.addTab(self.tab_tu, "")
+
+
         self.tab_3 = QtWidgets.QWidget()
         self.tab_3.setObjectName("tab_3")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.tab_3)
@@ -164,6 +178,7 @@ class Ui_MainWindow(object):
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.gridLayout_4.addWidget(self.plainTextEdit, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_3, "")
+
         self.verticalLayout.addWidget(self.tabWidget)
         self.line = QtWidgets.QFrame(self.frame)
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
@@ -292,6 +307,10 @@ class Ui_MainWindow(object):
 "\n"
 "交流Q群：592055060"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "关于"))
+
+        self.plainTextEdit_tu.setPlainText(_translate("MainWindow", "自动突破，建议选择下方标记己方式神"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_tu), _translate("MainWindow", "突破"))
+
         self.groupBox_2.setTitle(_translate("MainWindow", "高级选项"))
         self.label_2.setText(_translate("MainWindow", "  画面超时时间(秒)："))
         self.label_3.setText(_translate("MainWindow", "  操作超时时间(秒)："))

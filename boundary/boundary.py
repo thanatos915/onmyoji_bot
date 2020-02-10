@@ -47,7 +47,7 @@ class Boundary(Fighter):
 
             is_end = False
             while time.time() - start_time <= 20 and self.run and not is_end:
-                result = self.yys.find_game_img('img/JIN-GONG.png', 0, None, None, 0, 0.95)
+                result = self.yys.find_game_img('img/JIN-GONG.png', 0, None, None, 0, 0.94)
                 if result:
                     self.log.writeinfo(self.name + '选择突破对象成功')
                     # 开始进攻
@@ -126,8 +126,9 @@ class Boundary(Fighter):
         self.log.writeinfo(self.name + '检测是战斗是否结束')
         start_time = time.time()
         while time.time() - start_time <= 500 and self.run:
-            maxVal, maxLoc = self.yys.find_multi_img('img/YIN-BI.png', 'img/SHI-BAI.png', 'img/SHENG-li.png')
+            maxVal, maxLoc = self.yys.find_multi_img('img/YIN-BI.png', 'img/SHI-BAI.png', 'img/SHENG-LI.png')
             yingVal, shibaiVal, shengliVal = maxVal
+            # print(maxVal)
             if shibaiVal > 0.97:
                 self.log.writeinfo(self.name + "战斗结束: 失败")
                 return 1
@@ -136,10 +137,10 @@ class Boundary(Fighter):
                 self.log.writeinfo(self.name + "战斗结束: 胜利")
                 return 2
 
-            if shengliVal:
-                self.click_until('第一次结算', 'img/YIN-BI.png', ut.threeposition(), 0)
+            if shengliVal > 0.97:
+                self.click_until('第一次结算', 'img/YIN-BI.png', ut.threeposition(), None, 0.2)
 
-            time.sleep(0.5)
+            time.sleep(0.2)
 
         return -1
 
@@ -194,3 +195,4 @@ class Boundary(Fighter):
 
             self.yys.mouse_click_bg(*TuPoPos.refresh_btn)
             time.sleep(1)
+            self.yys.mouse_click_bg(*TuPoPos.refresh_sure_btn)

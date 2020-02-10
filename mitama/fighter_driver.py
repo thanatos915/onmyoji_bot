@@ -19,7 +19,7 @@ class DriverFighter(Fighter):
         mood1 = ut.Mood()
         mood2 = ut.Mood()
         mood3 = ut.Mood(3)
-        mood4 = ut.Mood(4)
+        mood4 = ut.Mood(2)
 
         # 战斗主循环
         self.yys.wait_game_img('img\\KAI-SHI-ZHAN-DOU.png',
