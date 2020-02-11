@@ -81,8 +81,8 @@ class DriverExplore(ExploreFight):
         img_src = self.yys.window_part_shot(pos_start, pos_end)
         cv2.imwrite('Temp/' + str(time.time()) + '.png', img_src)
         # print("要挑战怪物图")
-        cv2.imshow("image", img_src)
-        cv2.waitKey(0)
+        # cv2.imshow("image", img_src)
+        # cv2.waitKey(0)
         templates = [
             'img/FIGHT.png'
         ]
