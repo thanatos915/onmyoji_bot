@@ -27,6 +27,7 @@ class TansuoPos():
     jie_shou_btn = (107, 203), (143, 251)  # 接受探索邀请
     gouliang_exp_passenger = (191, 134), (725, 470)  # 打手 狗粮查找位置
     gouliang_exp_driver = (1, 258), (547, 537)  # 打手 狗粮查找位置
+    jixu_btn = (310, 372), (738, 400) #继续邀请队友
 
 
 class YuhunPos():
@@ -35,4 +36,5 @@ class YuhunPos():
 
 class TuPoPos():
     refresh_btn = (860, 460), (1000, 500) # 结界刷新按钮
-    refresh_sure_btn = (605, 365), (745, 400)
+    refresh_sure_btn = (605, 365), (745, 400),
+    ji_xu_btn = (672, 389), (680, 395) # 继续邀请

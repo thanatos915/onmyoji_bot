@@ -1,13 +1,38 @@
-Mon, 10 Feb 2020 16:20:12  logsystem.py  [line:20]  INFO  Boundary: 绑定窗口成功
-Mon, 10 Feb 2020 16:20:12  logsystem.py  [line:20]  INFO  Boundary: 66688
-Mon, 10 Feb 2020 16:20:12  logsystem.py  [line:20]  INFO  Boundary: 激活窗口成功
-Mon, 10 Feb 2020 16:20:13  logsystem.py  [line:20]  INFO  Now you mood is level 1
-Mon, 10 Feb 2020 16:20:13  logsystem.py  [line:20]  INFO  Boundary: 点击 选择突破对象
-Mon, 10 Feb 2020 16:20:14  logsystem.py  [line:20]  INFO  Boundary: 选择突破对象成功
-Mon, 10 Feb 2020 16:20:14  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Mon, 10 Feb 2020 16:20:15  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Mon, 10 Feb 2020 16:20:16  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Mon, 10 Feb 2020 16:20:17  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Mon, 10 Feb 2020 16:20:18  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Mon, 10 Feb 2020 16:20:19  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
-Mon, 10 Feb 2020 16:20:20  logsystem.py  [line:20]  INFO  Boundary: 点击 开始进攻
+Tue, 11 Feb 2020 20:53:20  logsystem.py  [line:20]  INFO  Driver: 绑定窗口成功
+Tue, 11 Feb 2020 20:53:20  logsystem.py  [line:20]  INFO  Driver: 853352
+Tue, 11 Feb 2020 20:53:20  logsystem.py  [line:20]  INFO  Driver: 激活窗口成功
+Tue, 11 Feb 2020 20:53:20  logsystem.py  [line:20]  INFO  Driver: 正在寻找怪物
+Tue, 11 Feb 2020 20:53:20  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:53:27  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:53:32  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:53:35  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:53:35  logsystem.py  [line:20]  INFO  拖动场景
+Tue, 11 Feb 2020 20:53:37  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:53:40  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:53:42  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:53:43  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:53:43  logsystem.py  [line:20]  INFO  拖动场景
+Tue, 11 Feb 2020 20:53:45  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:53:48  logsystem.py  [line:20]  INFO  Driver: 点击 挑战怪物
+Tue, 11 Feb 2020 20:53:51  logsystem.py  [line:20]  INFO  Driver: 点击 挑战怪物 成功
+Tue, 11 Feb 2020 20:53:52  logsystem.py  [line:20]  INFO  Driver: 开始检测狗粮经验状态
+Tue, 11 Feb 2020 20:53:52  logsystem.py  [line:20]  INFO  Driver: 点击 准备按钮
+Tue, 11 Feb 2020 20:53:52  logsystem.py  [line:20]  INFO  Driver: 点击 准备按钮
+Tue, 11 Feb 2020 20:53:52  logsystem.py  [line:20]  INFO  Driver: 点击 准备按钮 成功
+Tue, 11 Feb 2020 20:53:52  logsystem.py  [line:20]  INFO  Driver: 检测是战斗是否结束
+Tue, 11 Feb 2020 20:54:01  logsystem.py  [line:20]  INFO  Driver: 战斗结束
+Tue, 11 Feb 2020 20:54:01  logsystem.py  [line:20]  INFO  Driver: 点击 第一次结算
+Tue, 11 Feb 2020 20:54:03  logsystem.py  [line:20]  INFO  Driver: 点击 第一次结算 成功
+Tue, 11 Feb 2020 20:54:03  logsystem.py  [line:20]  INFO  Driver: 点击 第二次结算
+Tue, 11 Feb 2020 20:54:04  logsystem.py  [line:20]  INFO  Driver: 点击 第二次结算 成功
+Tue, 11 Feb 2020 20:54:04  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:54:04  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:54:04  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:54:04  logsystem.py  [line:20]  INFO  拖动场景
+Tue, 11 Feb 2020 20:54:06  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:54:09  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:54:09  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:54:10  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:54:10  logsystem.py  [line:20]  INFO  拖动场景
+Tue, 11 Feb 2020 20:54:12  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Tue, 11 Feb 2020 20:54:14  logsystem.py  [line:20]  INFO  Driver: 点击 挑战怪物

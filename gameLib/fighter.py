@@ -156,6 +156,7 @@ class Fighter:
         '''
         # 在指定时间内反复监测画面并点击
         start_time = time.time()
+        self.log.writeinfo(self.name + '点击 ' + tag)
         while time.time() - start_time <= self.max_op_time and self.run:
             result = self.yys.find_game_img(img_path)
             if not appear:
@@ -166,7 +167,7 @@ class Fighter:
             else:
                 # 点击指定位置并等待下一轮
                 self.yys.mouse_click_bg(pos, pos_end)
-                self.log.writeinfo(self.name + '点击 ' + tag)
+                # self.log.writeinfo(self.name + '点击 ' + tag)
             time.sleep(step_time)
         self.log.writewarning(self.name + '点击 ' + tag + ' 失败!')
 

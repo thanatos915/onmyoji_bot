@@ -14,12 +14,12 @@ class ExploreFight(Fighter):
         Fighter.__init__(self)
 
         # 读取配置文件
-        # conf = configparser.ConfigParser()
-        # conf.read('conf.ini')
-        # self.fight_boss_enable = conf.getboolean('explore', 'fight_boss_enable')
-        # self.slide_shikigami = conf.getboolean('explore', 'slide_shikigami')
-        # self.slide_shikigami_progress = conf.getint('explore', 'slide_shikigami_progress')
-        # self.zhunbei_delay = conf.getfloat('explore', 'zhunbei_delay')
+        conf = configparser.ConfigParser()
+        conf.read('conf.ini')
+        self.fight_boss_enable = conf.getboolean('explore', 'fight_boss_enable')
+        self.slide_shikigami = conf.getboolean('explore', 'slide_shikigami')
+        self.slide_shikigami_progress = conf.getint('explore', 'slide_shikigami_progress')
+        self.zhunbei_delay = conf.getfloat('explore', 'zhunbei_delay')
 
     def next_scene(self):
         '''

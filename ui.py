@@ -5,6 +5,9 @@ from mitama.dual import DualFighter
 from mitama.fighter_driver import DriverFighter
 from mitama.fighter_passenger import FighterPassenger
 from mitama.single_fight import SingleFight
+from explore.passenger_explore import PassengerExplore
+from explore.driver_explore import DriverExplore
+from explore.dual_explore import DualExplore
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QObject, pyqtSignal
@@ -69,15 +72,16 @@ class MyMainWindow(QMainWindow):
 
         # 探索参数
         if section == 1:
+            pass
             # 探索
-            conf.set('explore', 'fight_boss_enable',
-                     str(self.ui.checkBox_2.isChecked()))
-            conf.set('explore', 'slide_shikigami',
-                     str(self.ui.checkBox_3.isChecked()))
-            conf.set('explore', 'slide_shikigami_progress',
-                     str(self.ui.horizontalSlider.value()))
-            conf.set('explore', 'zhunbei_delay',
-                     str(self.ui.lineEdit_3.text()))
+            # conf.set('explore', 'fight_boss_enable',
+            #          str(self.ui.checkBox_2.isChecked()))
+            # conf.set('explore', 'slide_shikigami',
+            #          str(self.ui.checkBox_3.isChecked()))
+            # conf.set('explore', 'slide_shikigami_progress',
+            #          str(self.ui.horizontalSlider.value()))
+            # conf.set('explore', 'zhunbei_delay',
+            #          str(self.ui.lineEdit_3.text()))
 
     def get_conf(self, section):
         conf = configparser.ConfigParser()
@@ -127,7 +131,18 @@ class MyMainWindow(QMainWindow):
 
         elif section == 2:
             # 探索
-            self.fight = ExploreFight()
+            if self.ui.explore_single.isChecked():
+                # 单刷
+                logging.info("未开发")
+            elif self.ui.explore_driver.isChecked():
+                # 司机
+                self.fight = DriverExplore()
+            elif self.ui.explore_passenger.isChecked():
+                # 乘客
+                self.fight = PassengerExplore()
+            elif self.ui.explore_dual.isChecked():
+                # 双开
+                self.fight = DualExplore()
         elif section == 3:
             self.fight = Boundary()
 
@@ -164,12 +179,16 @@ if __name__ == "__main__":
             mode = 0
             global section
             section = 0
+            try:
 
-            # 设置战斗参数
-            app = QApplication(sys.argv)
-            myWin = MyMainWindow()
-            myWin.show()
-            sys.exit(app.exec_())
+                # 设置战斗参数
+                app = QApplication(sys.argv)
+                myWin = MyMainWindow()
+                myWin.show()
+                sys.exit(app.exec_())
+            except Exception as e:
+                print(e)
+                os.system('pause')
 
         else:
             ctypes.windll.shell32.ShellExecuteW(

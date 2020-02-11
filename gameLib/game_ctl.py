@@ -228,6 +228,24 @@ class GameControl():
         # 返回列表
         return maxVal_list, maxLoc_list
 
+    def find_img_from_src(self, img_src, *img_template_path, th=0.97):
+        """
+        查找多张指定图片 有一张即可
+        :param th:
+        :param img_src:
+        :param img_template_path:
+        :return:
+        """
+        # 读入文件
+        for item in img_template_path:
+            img_template = cv2.imread(item, cv2.IMREAD_COLOR)
+            res = cv2.matchTemplate(img_src, img_template, cv2.TM_CCOEFF_NORMED)
+            minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(res)
+            if maxVal > th:
+                return maxLoc
+
+        return False
+
     def activate_window(self):
         user32 = ctypes.WinDLL('user32.dll')
         user32.SwitchToThisWindow(self.hwnd, True)

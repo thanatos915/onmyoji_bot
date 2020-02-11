@@ -14,6 +14,7 @@ import win32gui
 import win32ui
 import numpy as np
 from explore.passenger_explore import PassengerExplore
+from explore.driver_explore import DriverExplore
 from boundary.boundary import Boundary
 
 def is_admin():
@@ -23,26 +24,29 @@ def is_admin():
     except:
         return False
 
-img_src = cv2.imread('img/1581315668.159217_color.png')
-# 140 185
-# 150 195
-new_img = img_src[192:200, 140:145]
-img = Image.fromarray(new_img, 'RGB')
-# cv2.imwrite('img/{0}_color.png'.format(time.time()), img_src)
-width, height = img.size
-print(width,height)
-tolerance = 20
-r1, g1, b1 = (134, 227, 96)
-for x in range(width):
-    for y in range(height):
-        try:
-            pixel = img.getpixel((x, y))
-            r2, g2, b2 = pixel[:3]
-            print(r2,g2,b2)
-            if abs(r1 - r2) <= tolerance and abs(g1 - g2) <= tolerance and abs(b1 - b2) <= tolerance:
-               print(x, y)
-        except:
-            print('err')
+
+# print(a)a = np.array(np.array([[[674, 498], [655, 512], [683, 528], [789, 508]]]).min()).min()
+
+# img_src = cv2.imread('img/1581315668.159217_color.png')
+# # 140 185
+# # 150 195
+# new_img = img_src[192:200, 140:145]
+# img = Image.fromarray(new_img, 'RGB')
+# # cv2.imwrite('img/{0}_color.png'.format(time.time()), img_src)
+# width, height = img.size
+# print(width,height)
+# tolerance = 20
+# r1, g1, b1 = (134, 227, 96)
+# for x in range(width):
+#     for y in range(height):
+#         try:
+#             pixel = img.getpixel((x, y))
+#             r2, g2, b2 = pixel[:3]
+#             print(r2,g2,b2)
+#             if abs(r1 - r2) <= tolerance and abs(g1 - g2) <= tolerance and abs(b1 - b2) <= tolerance:
+#                print(x, y)
+#         except:
+#             print('err')
 
 # img_src = cv2.imread('img/1581224732.8175466_color.png')
 # img = Image.fromarray(img_src, 'RGB')
@@ -120,18 +124,18 @@ for x in range(width):
 # maxVal, maxLoc = yys.find_img('img/PROGESS.png')
 # print(maxVal, maxLoc)
 #
-# try:
-#     # 检测管理员权限
-#     if is_admin():
-#         yys = PassengerExplore()
-#         yys.check_exp_full()
-#     else:
-#         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
-# except KeyboardInterrupt:
-#     print('err')
-#     os.system('pause')
-# else:
-#     os.system('pause')
+try:
+    # 检测管理员权限
+    if is_admin():
+        yys = DriverExplore()
+        yys.find_exp_moster1()
+    else:
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
+except KeyboardInterrupt:
+    print('err')
+    os.system('pause')
+else:
+    os.system('pause')
 
 
 # img_src = cv2.imread('img/full.png')

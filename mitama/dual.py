@@ -45,6 +45,7 @@ class DualFighter():
                 logging.info('发现司机')
         self.passenger = FighterPassenger(hwnd=hwndlist[0])
         logging.info('发现乘客')
+        
 
     def start(self):
         task1 = threading.Thread(target=self.driver.start)
