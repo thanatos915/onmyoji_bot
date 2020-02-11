@@ -26,7 +26,6 @@ class DualExplore():
         for hwnd in hwndlist:
             yys = GameControl(hwnd)
             if yys.find_multi_game_img('img/JI-XU.png', 'img/YAO-QING.png'):
-            # if yys.find_game_img('img\\JI-XU.png'):
                 self.driver = DriverExplore(hwnd=hwnd)
                 hwndlist.remove(hwnd)
                 logging.info('发现司机')

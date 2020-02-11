@@ -1,3 +1,4 @@
+import os
 import time
 
 import cv2
@@ -263,7 +264,6 @@ class ExploreFight(Fighter):
         # 是否在探索中
         is_juexing = False
         while time.time() - start <= 2.5 and not is_start and not is_juexing and self.run:
-
             maxVal, maxLoc = self.yys.find_multi_img('img/ZHUN-BEI.png', 'img/DUI.png', 'img/YING-BING.png',
                                                  'img/TIAO-ZHAN.png', 'img/YAO-QING.png')
             startVal, teamVal, tanVal, tuVal, yaoqingVal = maxVal
@@ -289,8 +289,10 @@ class ExploreFight(Fighter):
         """
         while self.run:
             self.log.writeinfo('开始领取奖励')
+            time.sleep(0.8)
             loc = self.yys.find_game_img('img/TAN-JIANG-LI.png')
             if loc:
+                time.sleep(0.5)
                 self.click_until('领取奖励', 'img/HUO-DE-JIANG-LI.png', loc, (loc[0] + 30, loc[1] + 30))
                 self.yys.mouse_click_bg(ut.firstposition())
             else:
@@ -319,11 +321,12 @@ class ExploreFight(Fighter):
 
         # 点击准备，直到进入战斗
         self.click_until_multi('准备按钮', 'img/YI-ZHUN-BEI.png', 'img/ZI-DONG.png',
-                               pos=TansuoPos.ready_btn[0], pos_end=TansuoPos.ready_btn[1], sleep_time=0)
+                               pos=TansuoPos.ready_btn[0], pos_end=TansuoPos.ready_btn[1], sleep_time=0.3)
 
         # 检查战斗是否结束
         self.check_end()
 
+        time.sleep(2.5)
         self.yys.mouse_click_bg(ut.firstposition())
 
         # 二次结算

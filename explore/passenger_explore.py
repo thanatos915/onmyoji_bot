@@ -21,7 +21,7 @@ class PassengerExplore(ExploreFight):
     def __init__(self, hwnd=0):
         # 初始化
         ExploreFight.__init__(self, 'Passenger: ', hwnd)
-
+        self.level = 1
         # 读取配置文件
         # conf = configparser.ConfigParser()
         # conf.read('conf.ini')
@@ -41,7 +41,7 @@ class PassengerExplore(ExploreFight):
             logging.info(self.name + "正在检测当前场景")
             # 开始检测当前战斗情况
             is_start, is_team, is_tansuo, is_juexing, is_yaoqing = self.check_now_scene()
-
+            print( is_start, is_team, is_tansuo, is_juexing, is_yaoqing)
             if is_juexing:
                 # 等待接受邀请
                 if not self.yys.wait_game_img('img/JIE-SHOU.png', 100, False):
@@ -51,6 +51,8 @@ class PassengerExplore(ExploreFight):
                 self.click_until('接受探索邀请', 'img/JIE-SHOU.png', *TansuoPos.jie_shou_btn, 0.4, False)
 
             if not is_start and not is_team and is_tansuo:
+                # 检查奖励
+                self.receive_reward()
                 # 队伍解散 退出副本
                 self.quit_tansuo()
 

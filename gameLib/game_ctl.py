@@ -458,7 +458,7 @@ class GameControl():
             return True
         return False
 
-    def find_game_img(self, img_path, part=0, pos1=None, pos2=None, gray=0, tolerance=0.97):
+    def find_game_img(self, img_path, part=0, pos1=None, pos2=None, gray=0, tolerance=0.9):
         '''
         查找图片
             :param img_path: 查找路径
@@ -470,7 +470,7 @@ class GameControl():
         '''
         self.rejectbounty()
         maxVal, maxLoc = self.find_img(img_path, part, pos1, pos2, gray)
-        # print("查询图片", maxVal)
+        print("查询图片", maxVal)
         if maxVal > tolerance:
             return maxLoc
         else:
@@ -487,6 +487,7 @@ class GameControl():
             :return: 查找成功返回位置坐标，否则返回False
         '''
         maxVal, maxLoc = self.find_multi_img(*img_path)
+        print(maxVal)
         for item in maxVal:
             if item > tolerance:
                 return maxLoc

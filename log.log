@@ -1,38 +1,25 @@
-Tue, 11 Feb 2020 20:53:20  logsystem.py  [line:20]  INFO  Driver: 绑定窗口成功
-Tue, 11 Feb 2020 20:53:20  logsystem.py  [line:20]  INFO  Driver: 853352
-Tue, 11 Feb 2020 20:53:20  logsystem.py  [line:20]  INFO  Driver: 激活窗口成功
-Tue, 11 Feb 2020 20:53:20  logsystem.py  [line:20]  INFO  Driver: 正在寻找怪物
-Tue, 11 Feb 2020 20:53:20  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:53:27  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:53:32  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:53:35  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:53:35  logsystem.py  [line:20]  INFO  拖动场景
-Tue, 11 Feb 2020 20:53:37  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:53:40  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:53:42  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:53:43  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:53:43  logsystem.py  [line:20]  INFO  拖动场景
-Tue, 11 Feb 2020 20:53:45  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:53:48  logsystem.py  [line:20]  INFO  Driver: 点击 挑战怪物
-Tue, 11 Feb 2020 20:53:51  logsystem.py  [line:20]  INFO  Driver: 点击 挑战怪物 成功
-Tue, 11 Feb 2020 20:53:52  logsystem.py  [line:20]  INFO  Driver: 开始检测狗粮经验状态
-Tue, 11 Feb 2020 20:53:52  logsystem.py  [line:20]  INFO  Driver: 点击 准备按钮
-Tue, 11 Feb 2020 20:53:52  logsystem.py  [line:20]  INFO  Driver: 点击 准备按钮
-Tue, 11 Feb 2020 20:53:52  logsystem.py  [line:20]  INFO  Driver: 点击 准备按钮 成功
-Tue, 11 Feb 2020 20:53:52  logsystem.py  [line:20]  INFO  Driver: 检测是战斗是否结束
-Tue, 11 Feb 2020 20:54:01  logsystem.py  [line:20]  INFO  Driver: 战斗结束
-Tue, 11 Feb 2020 20:54:01  logsystem.py  [line:20]  INFO  Driver: 点击 第一次结算
-Tue, 11 Feb 2020 20:54:03  logsystem.py  [line:20]  INFO  Driver: 点击 第一次结算 成功
-Tue, 11 Feb 2020 20:54:03  logsystem.py  [line:20]  INFO  Driver: 点击 第二次结算
-Tue, 11 Feb 2020 20:54:04  logsystem.py  [line:20]  INFO  Driver: 点击 第二次结算 成功
-Tue, 11 Feb 2020 20:54:04  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:54:04  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:54:04  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:54:04  logsystem.py  [line:20]  INFO  拖动场景
-Tue, 11 Feb 2020 20:54:06  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:54:09  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:54:09  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:54:10  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:54:10  logsystem.py  [line:20]  INFO  拖动场景
-Tue, 11 Feb 2020 20:54:12  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
-Tue, 11 Feb 2020 20:54:14  logsystem.py  [line:20]  INFO  Driver: 点击 挑战怪物
+Wed, 12 Feb 2020 01:10:49  logsystem.py  [line:20]  INFO  Driver: 绑定窗口成功
+Wed, 12 Feb 2020 01:10:49  logsystem.py  [line:20]  INFO  Driver: 3081632
+Wed, 12 Feb 2020 01:10:49  logsystem.py  [line:20]  INFO  Driver: 激活窗口成功
+Wed, 12 Feb 2020 01:10:49  logsystem.py  [line:20]  INFO  Driver: 正在寻找怪物
+Wed, 12 Feb 2020 01:10:49  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Wed, 12 Feb 2020 01:10:54  logsystem.py  [line:20]  INFO  Driver: 点击 挑战怪物
+Wed, 12 Feb 2020 01:10:56  logsystem.py  [line:20]  INFO  Driver: 点击 挑战怪物 成功
+Wed, 12 Feb 2020 01:10:57  logsystem.py  [line:20]  INFO  Driver: 开始检测狗粮经验状态
+Wed, 12 Feb 2020 01:10:57  logsystem.py  [line:20]  INFO  Driver: 点击 准备按钮
+Wed, 12 Feb 2020 01:10:58  logsystem.py  [line:20]  INFO  Driver: 点击 准备按钮 成功
+Wed, 12 Feb 2020 01:10:58  logsystem.py  [line:20]  INFO  Driver: 检测是战斗是否结束
+Wed, 12 Feb 2020 01:11:04  logsystem.py  [line:20]  INFO  Driver: 战斗结束
+Wed, 12 Feb 2020 01:11:06  logsystem.py  [line:20]  INFO  Driver: 点击 第一次结算
+Wed, 12 Feb 2020 01:11:08  logsystem.py  [line:20]  INFO  Driver: 点击 第一次结算 成功
+Wed, 12 Feb 2020 01:11:08  logsystem.py  [line:20]  INFO  Driver: 点击 第二次结算
+Wed, 12 Feb 2020 01:11:09  logsystem.py  [line:20]  INFO  Driver: 点击 第二次结算 成功
+Wed, 12 Feb 2020 01:11:11  logsystem.py  [line:20]  INFO  Driver:  获取屏幕截图
+Wed, 12 Feb 2020 01:11:11  logsystem.py  [line:20]  INFO  Driver: 点击 挑战怪物
+Wed, 12 Feb 2020 01:11:13  logsystem.py  [line:20]  INFO  Driver: 点击 挑战怪物 成功
+Wed, 12 Feb 2020 01:11:14  logsystem.py  [line:20]  INFO  Driver: 开始检测狗粮经验状态
+Wed, 12 Feb 2020 01:11:15  logsystem.py  [line:20]  INFO  Driver: 点击 准备按钮
+Wed, 12 Feb 2020 01:11:15  logsystem.py  [line:20]  INFO  Driver: 点击 准备按钮 成功
+Wed, 12 Feb 2020 01:11:15  logsystem.py  [line:20]  INFO  Driver: 检测是战斗是否结束
+Wed, 12 Feb 2020 01:11:22  logsystem.py  [line:20]  INFO  Driver: 战斗结束
+Wed, 12 Feb 2020 01:11:25  logsystem.py  [line:20]  INFO  Driver: 点击 第一次结算
