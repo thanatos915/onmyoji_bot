@@ -79,10 +79,10 @@ class DriverExplore(ExploreFight):
         :return:
         """
         # 要挑战位置
-        pos_start = (pos1[0] - 100, pos1[1] - 50)
-        pos_end = (pos2[0] + 100, pos2[1] + 200)
+        pos_start = (pos1[0] - 1500, pos1[1] - 100)
+        pos_end = (pos2[0] + 150, pos2[1] + 200)
         img_src = self.yys.window_part_shot(pos_start, pos_end)
-        cv2.imwrite('Temp/' + str(time.time()) + '.png', img_src)
+        # cv2.imwrite('Temp/' + str(time.time()) + '.png', img_src)
         # print("要挑战怪物图")
         # cv2.imshow("image", img_src)
         # cv2.waitKey(0)
@@ -91,7 +91,7 @@ class DriverExplore(ExploreFight):
         ]
 
         res = self.yys.find_img_from_src(img_src, *templates)
-        if not res and not boss:
+        if not res:
             time.sleep(1)
             return False
         pos1 = (res[0] + pos_start[0], res[1] + pos_start[1])
@@ -274,30 +274,30 @@ class DriverExplore(ExploreFight):
         moster = []
         # 循环截图分析
         times = 0
-        while self.run and time.time() - start <= sleep:
-            img_src = self.yys.window_part_shot(pos1, pos2)
-            times += 1
-            for item in self.exp_templates:
-                res = cv2.matchTemplate(img_src, item, cv2.TM_CCOEFF_NORMED)
-                threshold = 0.65
-
-                h, w = img_template.shape[:2]
-
-                loc = np.where(res >= threshold)  # 匹配程度大于%80的坐标y,x
-                n, ex, ey = 1, 0, 0
-                for pt in zip(*loc[::-1]):  # *号表示可选参数
-                    # 去掉相邻的点
-                    x, y = pt[0] + int(w / 2) + pos1[0], pt[1] + int(h / 2) + pos1[1]
-                    if (x - ex) + (y - ey) < 15:
-                        continue
-                    ex, ey = x, y
-                    moster.append([x, y])
-                #     right_bottom = (pt[0] + w, pt[1] + h)
-                #     cv2.rectangle(img_src, pt, right_bottom, (0, 0, 255), 2)
-                # cv2.imshow("image", img_src)
-                # cv2.waitKey(0)
-
-            time.sleep(0.4)
+        # while self.run and time.time() - start <= sleep:
+        #     img_src = self.yys.window_part_shot(pos1, pos2)
+        #     times += 1
+        #     for item in self.exp_templates:
+        #         res = cv2.matchTemplate(img_src, item, cv2.TM_CCOEFF_NORMED)
+        #         threshold = 0.65
+        #
+        #         h, w = img_template.shape[:2]
+        #
+        #         loc = np.where(res >= threshold)  # 匹配程度大于%80的坐标y,x
+        #         n, ex, ey = 1, 0, 0
+        #         for pt in zip(*loc[::-1]):  # *号表示可选参数
+        #             # 去掉相邻的点
+        #             x, y = pt[0] + int(w / 2) + pos1[0], pt[1] + int(h / 2) + pos1[1]
+        #             if (x - ex) + (y - ey) < 15:
+        #                 continue
+        #             ex, ey = x, y
+        #             moster.append([x, y])
+        #         #     right_bottom = (pt[0] + w, pt[1] + h)
+        #         #     cv2.rectangle(img_src, pt, right_bottom, (0, 0, 255), 2)
+        #         # cv2.imshow("image", img_src)
+        #         # cv2.waitKey(0)
+        #
+        #     time.sleep(0.4)
 
         print("识别次数", times)
         # 识别完毕，开始整理boss 位置
