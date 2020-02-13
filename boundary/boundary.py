@@ -16,6 +16,9 @@ import win32gui
 import win32ui
 import numpy as np
 from gameLib.fighter import Fighter
+from gameLib.shishen import Shishen
+from gameLib.shishen_action import ShishenAction
+from gameLib.fight_way import FightWay
 
 
 class Boundary(Fighter):
@@ -23,6 +26,7 @@ class Boundary(Fighter):
     def __init__(self, hwnd=0):
         # 初始化
         Fighter.__init__(self, 'Boundary: ', 0, hwnd)
+        self.auto_fight = False
 
     def start_fight(self, pos):
         """
@@ -58,19 +62,24 @@ class Boundary(Fighter):
                         self.log.writeinfo(self.name + '结界突破券不足')
                         os.system('pause')
                         return fail_pos
+
+                    self.yys.wait_game_img('img/ZHUN-BEI.png')
+
                     # 准备
-                    self.click_until('准备', 'img\\ZI-DONG.png', *CommonPos.zhunbei_btn, mood2.get1mood() / 1000)
+                    self.click_until('准备', 'img\\ZHUN-BEI.png', *CommonPos.zhunbei_btn, 0.8, False)
 
                     time.sleep(0.8)
+                    if self.auto_fight:
+                        # 标记式神
+                        self.click_team(2)
 
-                    # 标记式神
-                    self.click_team(2)
-
-                    time.sleep(5)
+                        time.sleep(5)
+                    else:
+                        self.fight_way()
 
                     # 检测游戏结果
                     res = self.check_result()
-                    print(res)
+                    # print(res)
                     if res == -1:
                         # 超时退出游戏
                         self.yys.quit_game()
@@ -144,7 +153,6 @@ class Boundary(Fighter):
 
         return -1
 
-
     def start(self):
         # self.yys.takescreenshot()
         # os.system('pause')
@@ -196,3 +204,34 @@ class Boundary(Fighter):
             self.yys.mouse_click_bg(*TuPoPos.refresh_btn)
             time.sleep(1)
             self.yys.mouse_click_bg(*TuPoPos.refresh_sure_btn)
+
+    def fight_way(self):
+        """
+        战斗方式
+        """
+        fight_way = FightWay(self)
+        # 第一个出战
+        one = ShishenAction(self, "食发鬼", Shishen.shi_fa_gui).set_skill(3, 3, True)
+        # 第二个出战
+        two = ShishenAction(self, "兔子", Shishen.tu_zi).set_skill(2, 2, True)
+        # 第三个
+        three = ShishenAction(self, "茶几", Shishen.cha_ji).set_skill(3, 3, True)
+        #第四个
+        four = ShishenAction(self, "大蛇", Shishen.da_she).set_skill(2, 0, False, 2)
+        # 第五个
+        five = ShishenAction(self, "打火机", Shishen.zuo_fu_tong_zi).set_skill(3, 0, False)
+        # 第六个
+        six = ShishenAction(self, "神乐", Shishen.shen_yue).set_skill(3, 0, False, 2)
+
+        fight_way.add_action(one).add_action(two).add_action(three).add_action(three).add_action(four).add_action(five).add_action(six)
+
+        fight_way.change_zi_dong = self.figth_change_zi_dong
+
+        fight_way.start()
+
+    def figth_change_zi_dong(self, action: ShishenAction):
+
+        if action.name == '茶几' and action.skill_change:
+            return True
+        else:
+            return False

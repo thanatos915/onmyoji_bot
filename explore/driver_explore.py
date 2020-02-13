@@ -24,16 +24,19 @@ class DriverExplore(ExploreFight):
 
         self.isDriver = True
         self.exp_templates = [
-            'img/EXP.png',
-            'img/EXP2.png',
-            'img/EXP-XP.png',
+            cv2.imread('img/EXP.png'),
+            cv2.imread('img/EXP2.png'),
+            cv2.imread('img/EXP-XP.png'),
         ]
-        self.fuben_max_width = 2100
+        self.fuben_max_width = 1900
         self.now_fuben_width = 0
 
-        self.gouliang1 = False
+        conf = configparser.ConfigParser()
+        conf.read('conf.ini')
+        self.gouliang1 = conf.getboolean('explore', 'driver_gouliang_1')
         self.gouliang2 = False
-        self.gouliang3 = False
+        self.gouliang3 = conf.getboolean('explore', 'driver_gouliang_2')
+
 
     def start(self):
         """
@@ -86,10 +89,9 @@ class DriverExplore(ExploreFight):
         templates = [
             'img/FIGHT.png'
         ]
-        if boss:
-            templates.append('img/BOSS.png')
+
         res = self.yys.find_img_from_src(img_src, *templates)
-        if not res:
+        if not res and not boss:
             time.sleep(1)
             return False
         pos1 = (res[0] + pos_start[0], res[1] + pos_start[1])
@@ -110,21 +112,19 @@ class DriverExplore(ExploreFight):
         # 战斗次数
         fight_num = 0
         self.log.writeinfo(self.name + '正在寻找怪物')
-
+        not_exp_guai = []
         while self.run and not self.fuben_is_end():
             times = 0
-            while times <= 6:
-                moster = []
+            while times <= 8:
                 # 获取屏幕截图
                 self.log.writeinfo(self.name + ' 获取屏幕截图')
-                times += 1
                 img_src = self.yys.window_full_shot()
 
                 # 查找怪物
                 guai = []
                 img_template = cv2.imread('img/FIGHT.png')
                 res = cv2.matchTemplate(img_src, img_template, cv2.TM_CCOEFF_NORMED)
-                threshold = 0.8
+                threshold = 0.97
 
                 h, w = img_template.shape[:2]
 
@@ -133,18 +133,37 @@ class DriverExplore(ExploreFight):
                 for pt in zip(*loc[::-1]):  # *号表示可选参数
                     # 去掉相邻的点
                     x, y = pt[0] + int(w / 2) , pt[1] + int(h / 2)
-                    if (x - ex) + (y - ey) < 15:
+                    if abs(x - ex) + abs(y - ey) < 10:
+                        continue
+                    # 对经验怪
+                    isContinue = False
+                    for not_exp in not_exp_guai:
+                        # 获取前一个场景的坐标
+                        if self.now_fuben_width > 400 and times == 1:
+                            prev_x = self.now_fuben_width - 400 + 60
+                        else:
+                            prev_x = 60
+
+                        if abs(not_exp.get('pos')[0] - x) < prev_x and abs(not_exp.get('pos')[1] - y) < 50 and not_exp.get('times') >= 5:
+                            # print("我跳过了")
+                            isContinue = True
+                            break
+
+                    if isContinue:
                         continue
                     ex, ey = x, y
                     guai.append([x, y])
                 #     right_bottom = (pt[0] + w, pt[1] + h)
-                #     cv2.rectangle(img_src, pt, right_bottom, (0, 0, 255), 2)
+                #     cv2.rectangle(img_src, pt, right_bottom, (0, 0, 255), 1)
                 # cv2.imshow("image", img_src)
                 # cv2.waitKey(0)
+                # print(guai)
+                #
+                if len(guai) <= 0:
+                    times = 100
 
                 # 查找怪物是否是经验怪
                 for item in guai:
-                    print(item)
                     x0 = item[0] - 100
                     y0 = item[1] - 60
                     x1 = item[0] + 100
@@ -155,45 +174,70 @@ class DriverExplore(ExploreFight):
                     # 区域查找 是否有经验图片
                     exp_pos = []
                     for template in self.exp_templates:
-                        img_template = cv2.imread(template)
-                        res = cv2.matchTemplate(new_img, img_template, cv2.TM_CCOEFF_NORMED)
-                        threshold = 0.70
-                        h, w = img_template.shape[:2]
-                        loc = np.where(res >= threshold)  # 匹配程度大于%80的坐标y,x
-                        n, ex, ey = 1, 0, 0
-                        for pt in zip(*loc[::-1]):  # *号表示可选参数
-                            # 去掉相邻的点
-                            x, y = pt[0] + int(w / 2) , pt[1] + int(h / 2)
-                            if (x - ex) + (y - ey) < 15:
-                                continue
-                            ex, ey = x, y
-                            exp_pos.append([x, y])
-                        #     right_bottom = (pt[0] + w, pt[1] + h)
-                        #     cv2.rectangle(new_img, pt, right_bottom, (0, 0, 255), 2)
-                        # cv2.imshow("image", new_img)
+                        # cv2.imshow("image", template)
                         # cv2.waitKey(0)
+                        try:
+                            res = cv2.matchTemplate(new_img, template, cv2.TM_CCOEFF_NORMED)
+                            threshold = 0.70
+                            h, w = img_template.shape[:2]
+                            loc = np.where(res >= threshold)  # 匹配程度大于%80的坐标y,x
+                            n, ex, ey = 1, 0, 0
+                            for pt in zip(*loc[::-1]):  # *号表示可选参数
+                                # 去掉相邻的点
+                                x, y = pt[0] + int(w / 2) , pt[1] + int(h / 2)
+                                if (x - ex) + (y - ey) < 10:
+                                    continue
+                                ex, ey = x, y
+                                exp_pos.append([x, y])
+                        except:
+                            pass
+                    #         right_bottom = (x, y)
+                    #         cv2.rectangle(new_img, pt, right_bottom, (0, 0, 255), 1)
+                    # cv2.imshow("image", new_img)
+                    # cv2.waitKey(0)
+                    if len(exp_pos) <= 0:
+                        # 记录怪物检测次数
+                        isSet = False
+                        for not_exp in not_exp_guai:
+                            if self.now_fuben_width > 400 and times == 1:
+                                prev_x = self.now_fuben_width - 400 + 60
+                            else:
+                                prev_x = 60
+                            if abs(not_exp.get('pos')[0] - item[0]) < prev_x and abs(not_exp.get('pos')[1] - item[1]) < 40:
+                                isSet = True
+                                not_exp_guai.append({'pos': (item[0] + self.now_fuben_width, item[1]), 'times': not_exp.get('times') + 1})
+                                not_exp_guai.remove(not_exp)
+                                break
+                        if not isSet:
+                            not_exp_guai.append({'pos': (item[0] + self.now_fuben_width, item[1]), 'times': 1})
+
+                    # print(not_exp_guai)
 
                     for pos in exp_pos:
                         new_posy = y0 + pos[1]
                         if new_posy > item[1] and new_posy - 70 > item[1]:
                             fight_num += 1
                             self.fight_monster(item, (item[0] + 30, item[1] + 20))
+
+                if len(guai) < 3:
+                    times = 0
+                    self.next_scene()
                     break
-                times += 1
-                time.sleep(0.6)
+                else:
+                    times += 1
+                    time.sleep(0.3)
 
             # 没有怪物，拖动场景
             times = 0
-            self.log.writeinfo("拖动场景")
             self.next_scene()
 
         # 没有找到怪物 但是有经验怪 挑战BOSS
         is_fight_boss = False
         bossLoc = self.yys.find_game_img('img/BOSS.png')
         if bossLoc:
+            self.fight_monster(bossLoc, (bossLoc[0] + 30, bossLoc[1] + 30), True)
             print("挑战BOSS")
             is_fight_boss = True
-            self.fight_monster(bossLoc, (bossLoc[0] + 50, bossLoc[1] + 40), True)
 
         if fight_num <= 0:
             # 随机选择一个怪物进行挑战
@@ -214,6 +258,9 @@ class DriverExplore(ExploreFight):
             self.log.writeinfo('探索中 退出探索进行下一轮')
             self.quit_tansuo()
 
+        self.log.writeinfo('等待回到章节页面')
+        self.yys.wait_game_img('img/JI-XU.png')
+
     def search_pos_exp_moster(self, pos1, pos2, sleep=3.5):
         """
         查找制定位置的经验怪
@@ -231,9 +278,7 @@ class DriverExplore(ExploreFight):
             img_src = self.yys.window_part_shot(pos1, pos2)
             times += 1
             for item in self.exp_templates:
-                img_template = cv2.imread(item)
-
-                res = cv2.matchTemplate(img_src, img_template, cv2.TM_CCOEFF_NORMED)
+                res = cv2.matchTemplate(img_src, item, cv2.TM_CCOEFF_NORMED)
                 threshold = 0.65
 
                 h, w = img_template.shape[:2]
@@ -273,17 +318,25 @@ class DriverExplore(ExploreFight):
         移动至下一个场景，每次移动400像素
         '''
         if width > 0:
-            x0 = random.randint(width + 10, 1126)
+            x0 = random.randint(width + 120, 1126)
             x1 = x0 - width
         else:
-            x0 = random.randint(10, abs(width) - 10)
+            x0 = random.randint(10, abs(width) - 120)
             x1 = x0 + abs(width)
 
-        y0 = random.randint(210, 310)
-        y1 = random.randint(210, 310)
+        y0 = random.randint(120, 220)
+        y1 = random.randint(120, 220)
         self.now_fuben_width += width
-        print(self.now_fuben_width)
+        self.log.writeinfo("拖动场景：" +  str(self.now_fuben_width))
         self.yys.mouse_drag_bg((x0, y0), (x1, y1))
 
     def fuben_is_end(self):
         return self.now_fuben_width >= self.fuben_max_width
+
+    def test(self):
+        is_fight_boss = False
+        bossLoc = self.yys.find_game_img('img/BOSS.png')
+        if bossLoc:
+            self.fight_monster(bossLoc, (bossLoc[0] + 30, bossLoc[1] + 30), True)
+            print("挑战BOSS")
+            is_fight_boss = True

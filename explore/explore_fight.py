@@ -1,3 +1,4 @@
+import configparser
 import os
 import time
 
@@ -16,12 +17,10 @@ class ExploreFight(Fighter):
         Fighter.__init__(self, name, 0, hwnd)
 
         # 读取配置文件
-        # conf = configparser.ConfigParser()
-        # conf.read('conf.ini')
-        # self.fight_boss_enable = conf.getboolean('explore', 'fight_boss_enable')
-        # self.slide_shikigami = conf.getboolean('explore', 'slide_shikigami')
-        # self.slide_shikigami_progress = conf.getint('explore', 'slide_shikigami_progress')
-        # self.zhunbei_delay = conf.getfloat('explore', 'zhunbei_delay')
+        conf = configparser.ConfigParser()
+        conf.read('conf.ini')
+        self.level = conf.getint('explore', 'level')
+
         self.isDriver = False
 
         self.gouliang1 = True
@@ -229,6 +228,34 @@ class ExploreFight(Fighter):
                 number += 1
                 continue
 
+            # 排除N卡4星
+            if self.level == 2:
+                # 检查4星N卡
+                tml_img = cv2.imread('img/XING-4-1.png')
+                res = cv2.matchTemplate(new_img, tml_img, cv2.TM_CCOEFF_NORMED)
+                minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(res)
+                if maxVal > 0.9:
+                    print('式神{0}：N卡大于4星'.format(number))
+                    number += 1
+                    continue
+
+            # 排除式神4星以上
+            xing4 = ['img/XING-4-2.png', 'img/XING-4-3.png']
+            is_set = False
+            for item in xing:
+                tml_img = cv2.imread(item)
+                res = cv2.matchTemplate(new_img, tml_img, cv2.TM_CCOEFF_NORMED)
+                minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(res)
+                print("{0} {1}".format(item, maxVal))
+                if maxVal > 0.9:
+                    is_set = True
+                    break
+            if is_set:
+                print('式神{0}：大于四星'.format(number))
+                number += 1
+                continue
+
+
             # 当前式神可出战
             replace_x1 = int(part_pos_start[0] + x2 - 55)
             print('式神位置', (replace_x1, 520), replace_pos[shi_shen_pos])
@@ -288,8 +315,8 @@ class ExploreFight(Fighter):
         :return:
         """
         while self.run:
-            self.log.writeinfo('开始领取奖励')
-            time.sleep(0.8)
+            self.log.writeinfo(self.name + '开始领取奖励')
+            time.sleep(1.2)
             loc = self.yys.find_game_img('img/TAN-JIANG-LI.png')
             if loc:
                 time.sleep(0.5)
@@ -326,8 +353,8 @@ class ExploreFight(Fighter):
         # 检查战斗是否结束
         self.check_end()
 
-        time.sleep(2.5)
-        self.yys.mouse_click_bg(ut.firstposition())
+
+        self.yys.mouse_click_bg(ut.threeposition())
 
         # 二次结算
         self.yys.mouse_click_bg(ut.firstposition())
@@ -337,5 +364,5 @@ class ExploreFight(Fighter):
                          *CommonPos.second_position, 0.2, False)
 
         #保证游戏结束
-        self.yys.mouse_click_bg(ut.firstposition())
+        self.yys.mouse_click_bg(ut.threeposition())
 

@@ -72,18 +72,26 @@ class Fighter:
         # 点击怪物
         pass
 
-    def click_team(self, mode=1):
+    def click_team(self, mode=1, number=0):
         """
         标记式神
             :param mode 标记场景类型 1：御魂 2: 突破
         """
         # 标记式神
+
+        num = 0
+        if number > 0:
+            num = number
+
         if self.team and self.team_id > 0:
+            num = self.team_id
+
+        if num > 0:
             # 100 1040
             # 125 50
             if mode == 1:
                 # 御魂场景获取标记位置
-                min = (self.team_id - 1) * 105 + (self.team_id - 1) * 100 + 95
+                min = (num - 1) * 105 + (num - 1) * 100 + 95
                 max = min + 50
                 pos = (min, 355), (max, 425)
             elif mode == 2:
@@ -94,7 +102,7 @@ class Fighter:
                     3: ((523, 270), (570, 325)),
                     4: ((715, 340), (750, 380)),
                     5: ((955, 400), (1055, 430)),
-                }.get(self.team_id)
+                }.get(num)
             start_time = time.time()
             while time.time() - start_time <= 3 and self.run:
                 x1 = pos[0][0] - 100
@@ -166,6 +174,7 @@ class Fighter:
                 return True
             else:
                 # 点击指定位置并等待下一轮
+                # print("点击")
                 self.yys.mouse_click_bg(pos, pos_end)
                 # self.log.writeinfo(self.name + '点击 ' + tag)
             time.sleep(step_time)

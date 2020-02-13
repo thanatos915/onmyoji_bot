@@ -10,7 +10,7 @@ import win32con
 import win32gui
 import win32ui
 from PIL import Image
-
+from tools.game_pos import CommonPos
 
 class GameControl():
     def __init__(self, hwnd, quit_game_enable=1):
@@ -170,10 +170,6 @@ class GameControl():
         else:
             img_src = self.window_full_shot(None, gray)
 
-        # img_src = cv2.imread('img\\full.png')
-
-        # show_img(img_src)
-
         # 读入文件
         if gray == 0:
             img_template = cv2.imread(img_template_path, cv2.IMREAD_COLOR)
@@ -184,6 +180,12 @@ class GameControl():
             res = cv2.matchTemplate(
                 img_src, img_template, cv2.TM_CCOEFF_NORMED)
             minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(res)
+            # th, tw = img_template.shape[:2]
+            # tl = maxLoc
+            # br = (tl[0] + tw , tl[1] + th)
+            # cv2.rectangle(img_src, tl, br, [255, 0, 0], 2)
+            # cv2.imshow("image", img_src)
+            # cv2.waitKey(0)
             # print(maxVal, maxLoc, img_template_path)
             return maxVal, maxLoc
         except:
@@ -429,6 +431,41 @@ class GameControl():
         else:
             return False
 
+    def find_many_game_img(self, img_path, is_part=False, pos1=None, pos2=None, th=0.9):
+        """
+        根据坐标位置查找图片出现的多次位置
+        :param img_path:
+        :param pos1:
+        :param pos2:
+        :param th:
+        :return:
+        """
+        if is_part is True:
+            img_src = self.window_part_shot(pos1, pos2)
+        else:
+            img_src = self.window_full_shot()
+
+        # 读入文件
+        img_template = cv2.imread(img_path, cv2.IMREAD_COLOR)
+        h, w = img_template.shape[:2]
+        res = cv2.matchTemplate(img_src, img_template, cv2.TM_CCOEFF_NORMED)
+        loc = np.where(res >= th)
+        locs = []
+        n, ex, ey = 0, 0, 0
+        for pt in zip(*loc[::-1]):  # *号表示可选参数
+            # 去掉相邻的点
+            x, y = pt[0] + int(w / 2), pt[1] + int(h / 2)
+            if (x - ex) + (y - ey) < 10:
+                continue
+            ex, ey = x, y
+            locs.append([x, y])
+            right_bottom = (pt[0] + w, pt[1] + h)
+        #     cv2.rectangle(img_src, pt, right_bottom, (0, 0, 255), 2)
+        # cv2.imshow("image", img_src)
+        # cv2.waitKey(0)
+
+        return locs
+
     def quit_game(self):
         """
         退出游戏
@@ -470,7 +507,6 @@ class GameControl():
         '''
         self.rejectbounty()
         maxVal, maxLoc = self.find_img(img_path, part, pos1, pos2, gray)
-        print("查询图片", maxVal)
         if maxVal > tolerance:
             return maxLoc
         else:
@@ -493,6 +529,13 @@ class GameControl():
                 return maxLoc
 
         return False
+
+    def get_five_num(self):
+        """
+        获取当前战斗鬼火数量
+        """
+        locs = self.find_many_game_img('img/FIVE1.png', True, *CommonPos.five_num_region, 0.9)
+        return len(locs)
 
     def debug(self):
         '''

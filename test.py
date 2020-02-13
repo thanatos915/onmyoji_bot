@@ -127,8 +127,17 @@ def is_admin():
 try:
     # 检测管理员权限
     if is_admin():
-        yys = DriverExplore()
-        yys.find_exp_moster1()
+        hwnd = win32gui.FindWindow(0, u'阴阳师-网易游戏')
+        crl = DriverExplore(hwnd)
+        # maxVal, maxLoc = crl.find_multi_img('img/ZI-DONG.png', 'img/DUI.png', 'img/YING-BING.png')
+        num = crl.test()
+        print(num)
+        # crl = GameControl(hwnd)
+        # loc = crl.find_game_img('img/XUE-TIAO.png', 1, (192, 0), (1050, 210), 0, 0.7)
+        # print(loc)
+        # crl.takescreenshot()
+        # crl.get_five_num()
+
     else:
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
 except KeyboardInterrupt:

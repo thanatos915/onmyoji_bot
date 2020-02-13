@@ -71,17 +71,23 @@ class MyMainWindow(QMainWindow):
             pass
 
         # 探索参数
-        if section == 1:
+        if section == 2:
             pass
             # 探索
-            # conf.set('explore', 'fight_boss_enable',
-            #          str(self.ui.checkBox_2.isChecked()))
-            # conf.set('explore', 'slide_shikigami',
-            #          str(self.ui.checkBox_3.isChecked()))
-            # conf.set('explore', 'slide_shikigami_progress',
-            #          str(self.ui.horizontalSlider.value()))
-            # conf.set('explore', 'zhunbei_delay',
-            #          str(self.ui.lineEdit_3.text()))
+            level = 0
+            if self.ui.explore_ka_1.isChecked():
+                level = 2
+            elif self.ui.explore_ka_2.isChecked():
+                level = 3
+            elif self.ui.explore_ka_3.isChecked():
+                level = 1
+            conf.set('explore', 'level', str(level))
+            conf.set('explore', 'driver_gouliang_1', str(self.ui.checkBox_driver_gouliang1.isChecked()))
+            conf.set('explore', 'driver_gouliang_2', str(self.ui.checkBox_driver_gouliang2.isChecked()))
+            conf.set('explore', 'driver_passenger_1', str(self.ui.checkBox_passenger_gouliang1.isChecked()))
+            conf.set('explore', 'driver_passenger_2', str(self.ui.checkBox_passenger_gouliang2.isChecked()))
+            conf.set('explore', 'driver_passenger_3', str(self.ui.checkBox_passenger_gouliang3.isChecked()))
+
 
     def get_conf(self, section):
         conf = configparser.ConfigParser()
@@ -124,11 +130,9 @@ class MyMainWindow(QMainWindow):
             if self.ui.mitama_dual.isChecked():
                 # 双开
                 self.fight = DualFighter()
-
         elif section == 1:
             # 御灵
             self.fight = GoryouFight()
-
         elif section == 2:
             # 探索
             if self.ui.explore_single.isChecked():

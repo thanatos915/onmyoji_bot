@@ -21,14 +21,14 @@ class PassengerExplore(ExploreFight):
     def __init__(self, hwnd=0):
         # 初始化
         ExploreFight.__init__(self, 'Passenger: ', hwnd)
-        self.level = 1
+
         # 读取配置文件
-        # conf = configparser.ConfigParser()
-        # conf.read('conf.ini')
-        # self.fight_boss_enable = conf.getboolean('explore', 'fight_boss_enable')
-        # self.slide_shikigami = conf.getboolean('explore', 'slide_shikigami')
-        # self.slide_shikigami_progress = conf.getint('explore', 'slide_shikigami_progress')
-        # self.zhunbei_delay = conf.getfloat('explore', 'zhunbei_delay')
+        conf = configparser.ConfigParser()
+        conf.read('conf.ini')
+        self.gouliang1 = conf.getboolean('explore', 'driver_passenger_1')
+        self.gouliang2 = conf.getboolean('explore', 'driver_passenger_2')
+        self.gouliang3 = conf.getboolean('explore', 'driver_passenger_3')
+
 
 
     def start(self):
