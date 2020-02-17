@@ -180,10 +180,11 @@ class Fighter:
             time.sleep(step_time)
         self.log.writewarning(self.name + '点击 ' + tag + ' 失败!')
 
+        return False
         # 提醒玩家点击失败，并在5s后退出
-        self.yys.activate_window()
-        time.sleep(5)
-        self.yys.quit_game()
+        # self.yys.activate_window()
+        # time.sleep(5)
+        # self.yys.quit_game()
 
     def activate(self):
         self.log.writewarning(self.name + '启动脚本')

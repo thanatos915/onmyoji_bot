@@ -79,24 +79,28 @@ class DriverExplore(ExploreFight):
         :return:
         """
         # 要挑战位置
-        pos_start = (pos1[0] - 1500, pos1[1] - 100)
+        pos_start = (pos1[0] - 150, pos1[1] - 100)
         pos_end = (pos2[0] + 150, pos2[1] + 200)
         img_src = self.yys.window_part_shot(pos_start, pos_end)
-        # cv2.imwrite('Temp/' + str(time.time()) + '.png', img_src)
+        cv2.imwrite('Temp/' + str(time.time()) + '.png', img_src)
         # print("要挑战怪物图")
         # cv2.imshow("image", img_src)
         # cv2.waitKey(0)
         templates = [
             'img/FIGHT.png'
         ]
+        if boss:
+            templates = ['img/BOSS.png']
 
-        res = self.yys.find_img_from_src(img_src, *templates)
+        res = self.yys.find_img_from_src(img_src, *templates, th=0.96)
+
         if not res:
             time.sleep(1)
             return False
         pos1 = (res[0] + pos_start[0], res[1] + pos_start[1])
         pos2 = (pos1[0] + 15, pos1[1] + 10)
-        self.click_until('挑战怪物', 'img/ZHUN-BEI.png', pos1, pos2, 0.8, True)
+        print("boss位置", pos1, pos2)
+        self.click_until('挑战怪物', 'img/ZHUN-BEI.png', pos1, pos2, 0.8)
 
         self.wait_game_end()
 
@@ -115,7 +119,7 @@ class DriverExplore(ExploreFight):
         not_exp_guai = []
         while self.run and not self.fuben_is_end():
             times = 0
-            while times <= 8:
+            while times <= 6:
                 # 获取屏幕截图
                 self.log.writeinfo(self.name + ' 获取屏幕截图')
                 img_src = self.yys.window_full_shot()
@@ -253,6 +257,7 @@ class DriverExplore(ExploreFight):
         if is_tansuo and is_fight_boss:
             # 领取奖励
             self.receive_reward()
+            # self.quit_tansuo()
 
         if is_tansuo and not is_fight_boss:
             self.log.writeinfo('探索中 退出探索进行下一轮')
@@ -334,6 +339,10 @@ class DriverExplore(ExploreFight):
         return self.now_fuben_width >= self.fuben_max_width
 
     def test(self):
+
+        img_src = cv2.imread('1581758200.2020833.png')
+        res = self.yys.find_img_from_src(img_src, 'img/BOSS.png', 'img/FIGHT.png')
+        print(res)
         is_fight_boss = False
         bossLoc = self.yys.find_game_img('img/BOSS.png')
         if bossLoc:

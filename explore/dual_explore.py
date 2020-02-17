@@ -13,15 +13,15 @@ class DualExplore():
     def __init__(self):
 
         # 初始化窗口信息
-        hwndlist = GameWindow.get_game_hwnd()
+        self.hwndlist = GameWindow.get_game_hwnd()
 
         # 检测窗口信息是否正确
-        num = len(hwndlist)
+        num = len(self.hwndlist)
         if num == 2:
            logging.info('检测到两个窗口，窗口信息正常')
         else:
             logging.warning('检测到'+str(num)+'个窗口，窗口信息异常！')
-
+        hwndlist = self.hwndlist
         # 初始化司机和打手
         for hwnd in hwndlist:
             yys = GameControl(hwnd)

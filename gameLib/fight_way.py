@@ -45,13 +45,13 @@ class FightWay():
                 if maxVal > 0.9:
                     action.use_skill()
 
-                # 检测是否要切换回自动
-                if self.change_zi_dong(action):
-
-                    self.fighter.click_until("切换成自动战斗", 'img/ZI-DONG.png', *CommonPos.zi_dong_bth)
-                    # 标记式神
-                    self.fighter.click_team(2)
-                    return True
+                # # 检测是否要切换回自动
+                # if self.change_zi_dong(action):
+                #
+                #     self.fighter.click_until("切换成自动战斗", 'img/ZI-DONG.png', *CommonPos.zi_dong_bth, 0.2)
+                #     # 标记式神
+                #     self.fighter.click_team(2)
+                #     return True
 
             # 检查是否结束
             if not self.fighter.yys.find_game_img('img/SHOU-DONG.png'):

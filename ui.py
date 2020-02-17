@@ -77,9 +77,9 @@ class MyMainWindow(QMainWindow):
             level = 0
             if self.ui.explore_ka_1.isChecked():
                 level = 2
-            elif self.ui.explore_ka_2.isChecked():
-                level = 3
             elif self.ui.explore_ka_3.isChecked():
+                level = 3
+            elif self.ui.explore_ka_2.isChecked():
                 level = 1
             conf.set('explore', 'level', str(level))
             conf.set('explore', 'driver_gouliang_1', str(self.ui.checkBox_driver_gouliang1.isChecked()))
@@ -87,6 +87,11 @@ class MyMainWindow(QMainWindow):
             conf.set('explore', 'driver_passenger_1', str(self.ui.checkBox_passenger_gouliang1.isChecked()))
             conf.set('explore', 'driver_passenger_2', str(self.ui.checkBox_passenger_gouliang2.isChecked()))
             conf.set('explore', 'driver_passenger_3', str(self.ui.checkBox_passenger_gouliang3.isChecked()))
+
+        if section == 3:
+            # 结界突破
+            conf.set('tu', 'auto', str(self.ui.tu_auto.isChecked()))
+            conf.set('tu', 'shoudong', str(self.ui.tu_shoudong.isChecked()))
 
 
     def get_conf(self, section):
@@ -97,10 +102,12 @@ class MyMainWindow(QMainWindow):
         # 修改配置
         try:
             self.set_conf(conf, section)
-        except:
+        except Exception as e:
+            print(e)
             conf.add_section('watchdog')
             conf.add_section('explore')
             conf.add_section('others')
+            conf.add_section('tu')
             self.set_conf(conf, section)
 
         # 保存配置文件
@@ -148,6 +155,7 @@ class MyMainWindow(QMainWindow):
                 # 双开
                 self.fight = DualExplore()
         elif section == 3:
+            # 突破
             self.fight = Boundary()
 
         task = threading.Thread(target=self.fight.start)

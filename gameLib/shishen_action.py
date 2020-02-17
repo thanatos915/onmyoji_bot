@@ -28,10 +28,15 @@ class ShishenAction():
         # 鬼火数量
         self.fire_num = 0
 
-        # 是否使用技能前切换节能
+        # 是否使用技能前切换技能
         self.skill_change = False
 
         self.skill_change_way = None
+
+        # 切换技能回调
+        self.skill_change_cb = None
+        # 是否带了招财
+        self.is_zhao_cai = False
 
         # 对队友使用技能记录
         self.you_list = set()
@@ -62,7 +67,10 @@ class ShishenAction():
         if self.name == '茶几' and self.skill_change == False:
             self.fighter.log.writeinfo(self.name + "开始切换技能")
 
-            self.fighter.click_until(self.name + '切换技能', 'img/CHA-JI-SKILL1.png', *CommonPos.shishen_skill_two, 0.8)
+            res = self.fighter.click_until(self.name + '切换技能', 'img/CHA-JI-SKILL1.png', *CommonPos.shishen_skill_two, 0.8)
+
+            if not res:
+                return False
 
             self.fighter.click_until('', 'img/CHA-JI-BU-DONG.png', *CommonPos.cha_ji_change_skill_2, 0.8)
 
@@ -89,12 +97,20 @@ class ShishenAction():
         self.you_list.add(obj)
         return obj
 
-    def use_skill(self):
+    def use_skill(self, cb=None):
         """
         式神行动
         """
+        if self.is_zhao_cai:
+            self.fighter.log.writeinfo("等待鬼火检测")
+            time.sleep(1)
+
         five_num = self.fighter.yys.get_five_num()
         self.fighter.log.writeinfo("当前鬼火数量: {0}".format(five_num))
+
+        if self.skill_change and self.skill_change_cb and self.skill_change_cb(self):
+            return
+
         if self.fire_num <= five_num:
             # 使用技能
             pos = self.get_skill_pos(self.skill)
@@ -130,6 +146,10 @@ class ShishenAction():
             else:
                 # 对敌方使用技能
                 self.change_skill()
+
+                # 切换技能回调
+                if self.skill_change_cb and self.skill_change_cb(self):
+                    return
 
                 self.fighter.click_until("{0}对敌方使用{1}技能".format(self.name, self.skill), self.get_avator_path(), pos[0], pos[1], 0.7,
                                          False)

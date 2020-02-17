@@ -83,35 +83,38 @@ class GameControl():
         """
         w = pos2[0]-pos1[0]
         h = pos2[1]-pos1[1]
-        hwindc = win32gui.GetWindowDC(self.hwnd)
-        srcdc = win32ui.CreateDCFromHandle(hwindc)
-        memdc = srcdc.CreateCompatibleDC()
-        bmp = win32ui.CreateBitmap()
-        bmp.CreateCompatibleBitmap(srcdc, w, h)
-        memdc.SelectObject(bmp)
-        memdc.BitBlt((0, 0), (w, h), srcdc,
-                     (pos1[0]+self._border_l, pos1[1]+self._border_t), win32con.SRCCOPY)
-        if file_name != None:
-            bmp.SaveBitmapFile(memdc, file_name)
-            srcdc.DeleteDC()
-            memdc.DeleteDC()
-            win32gui.ReleaseDC(self.hwnd, hwindc)
-            win32gui.DeleteObject(bmp.GetHandle())
-            return
-        else:
-            signedIntsArray = bmp.GetBitmapBits(True)
-            img = np.fromstring(signedIntsArray, dtype='uint8')
-            img.shape = (h, w, 4)
-            srcdc.DeleteDC()
-            memdc.DeleteDC()
-            win32gui.ReleaseDC(self.hwnd, hwindc)
-            win32gui.DeleteObject(bmp.GetHandle())
-            #cv2.imshow("image", cv2.cvtColor(img, cv2.COLOR_BGRA2BGR))
-            # cv2.waitKey(0)
-            if gray == 0:
-                return cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+        try:
+            hwindc = win32gui.GetWindowDC(self.hwnd)
+            srcdc = win32ui.CreateDCFromHandle(hwindc)
+            memdc = srcdc.CreateCompatibleDC()
+            bmp = win32ui.CreateBitmap()
+            bmp.CreateCompatibleBitmap(srcdc, w, h)
+            memdc.SelectObject(bmp)
+            memdc.BitBlt((0, 0), (w, h), srcdc,
+                         (pos1[0]+self._border_l, pos1[1]+self._border_t), win32con.SRCCOPY)
+            if file_name != None:
+                bmp.SaveBitmapFile(memdc, file_name)
+                srcdc.DeleteDC()
+                memdc.DeleteDC()
+                win32gui.ReleaseDC(self.hwnd, hwindc)
+                win32gui.DeleteObject(bmp.GetHandle())
+                return
             else:
-                return cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+                signedIntsArray = bmp.GetBitmapBits(True)
+                img = np.fromstring(signedIntsArray, dtype='uint8')
+                img.shape = (h, w, 4)
+                srcdc.DeleteDC()
+                memdc.DeleteDC()
+                win32gui.ReleaseDC(self.hwnd, hwindc)
+                win32gui.DeleteObject(bmp.GetHandle())
+                #cv2.imshow("image", cv2.cvtColor(img, cv2.COLOR_BGRA2BGR))
+                # cv2.waitKey(0)
+                if gray == 0:
+                    return cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+                else:
+                    return cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+        except:
+            return self.window_part_shot(pos1, pos2, file_name, gray)
 
     def find_color(self, region, color, tolerance=0):
         """
@@ -206,7 +209,8 @@ class GameControl():
             img_src = self.window_part_shot(pos1, pos2, None, gray)
         else:
             img_src = self.window_full_shot(None, gray)
-
+        # cv2.imshow("image", img_src)
+        # cv2.waitKey(0)
         # 返回值列表
         maxVal_list = []
         maxLoc_list = []
@@ -243,6 +247,7 @@ class GameControl():
             img_template = cv2.imread(item, cv2.IMREAD_COLOR)
             res = cv2.matchTemplate(img_src, img_template, cv2.TM_CCOEFF_NORMED)
             minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(res)
+            print(maxVal)
             if maxVal > th:
                 return maxLoc
 

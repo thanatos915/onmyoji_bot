@@ -27,20 +27,21 @@ class ExploreFight(Fighter):
         self.gouliang2 = True
         self.gouliang3 = True
         # 式神种类 1:素材 2: N卡 3: R卡
-        self.level = 2
+        # self.level =
 
     def check_exp_full(self):
         """
         检查狗粮经验
         """
         self.log.writeinfo(self.name + '开始检测狗粮经验状态')
-        maxVal, maxLoc = self.yys.find_multi_img('img/MAN3.png', 'img/MAN1.png', 'img/MAN2.png', part=1,
-                                                 pos1=TansuoPos.gouliang_exp_passenger[0],
-                                                 pos2=TansuoPos.gouliang_exp_passenger[1], gray=1)
-        posV1, posV2, posV3 = maxVal
-        gouliang1 = posV1 > 0.97 and self.gouliang1
-        gouliang2 = posV2 > 0.97 and self.gouliang2
-        gouliang3 = posV3 > 0.97 and self.gouliang3
+        # maxVal, maxLoc = self.yys.find_multi_img('img/MAN3.png', 'img/MAN1.png', 'img/MAN2.png', part=1,
+        #                                          pos1=TansuoPos.gouliang_exp_passenger[0],
+        #                                          pos2=TansuoPos.gouliang_exp_passenger[1], gray=1)
+        # posV1, posV2, posV3 = maxVal
+        # print(posV1, posV2, posV3)
+        # gouliang1 = posV1 > 0.97 and self.gouliang1
+        # gouliang2 = posV2 > 0.96 and self.gouliang2
+        # gouliang3 = posV3 > 0.97 and self.gouliang3
 
         if self.isDriver:
             # 司机
@@ -66,7 +67,7 @@ class ExploreFight(Fighter):
         new_img = img_src[shishen_1[0][1]: shishen_1[1][1], shishen_1[0][0]: shishen_1[1][0]]
         posLoc1 = self.yys.find_img_from_src(new_img, *man)
         new_img = img_src[shishen_2[0][1]: shishen_2[1][1], shishen_2[0][0]: shishen_2[1][0]]
-        posLoc2 = self.yys.find_img_from_src(new_img, *man)
+        posLoc2 = self.yys.find_img_from_src(new_img, *man, th=0.96)
         new_img = img_src[shishen_3[0][1]: shishen_3[1][1], shishen_3[0][0]: shishen_3[1][0]]
         posLoc3 = self.yys.find_img_from_src(new_img, *man)
 
@@ -321,7 +322,10 @@ class ExploreFight(Fighter):
             if loc:
                 time.sleep(0.5)
                 self.click_until('领取奖励', 'img/HUO-DE-JIANG-LI.png', loc, (loc[0] + 30, loc[1] + 30))
+                time.sleep(0.5)
                 self.yys.mouse_click_bg(ut.firstposition())
+                time.sleep(0.3)
+                self.yys.mouse_click_bg(ut.threeposition())
             else:
                 return
 

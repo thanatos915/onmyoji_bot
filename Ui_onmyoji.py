@@ -208,12 +208,25 @@ class Ui_MainWindow(object):
         self.tab_tu.setObjectName("tab_tu")
         self.gridLayout_tu = QtWidgets.QGridLayout(self.tab_tu)
         self.gridLayout_tu.setObjectName("gridLayout_tu")
-        self.plainTextEdit_tu = QtWidgets.QPlainTextEdit(self.tab_tu)
-        self.plainTextEdit_tu.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.plainTextEdit_tu.setReadOnly(True)
-        self.plainTextEdit_tu.setObjectName("plainTextEdit")
-        self.gridLayout_tu.addWidget(self.plainTextEdit_tu, 0, 0, 1, 1)
+
+        self.groupBox_tu_1 = QtWidgets.QGroupBox(self.tab_tu)
+        self.groupBox_tu_1.setObjectName("groupBox_tu_1")
+        self.gridLayout_tu_1 = QtWidgets.QGridLayout(self.groupBox_tu_1)
+        self.gridLayout_tu_1.setObjectName("gridLayout_tu_1")
+
+        self.tu_auto = QtWidgets.QRadioButton(self.groupBox_tu_1)
+        self.tu_auto.setAutoFillBackground(False)
+        self.tu_auto.setChecked(True)
+        self.tu_auto.setObjectName("tu_auto")
+        self.gridLayout_tu_1.addWidget(self.tu_auto, 0, 0, 0, 1)
+
+        self.tu_shoudong = QtWidgets.QRadioButton(self.groupBox_tu_1)
+        self.tu_shoudong.setObjectName("tu_shoudong")
+        self.gridLayout_tu_1.addWidget(self.tu_shoudong, 0, 1, 0, 1)
+        self.gridLayout_tu.addWidget(self.groupBox_tu_1, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_tu, "")
+
+
 
 
         self.tab_3 = QtWidgets.QWidget()
@@ -370,6 +383,10 @@ class Ui_MainWindow(object):
 
         # self.plainTextEdit_tu.setPlainText(_translate("MainWindow", "自动突破，建议选择下方标记己方式神"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_tu), _translate("MainWindow", "突破"))
+
+        self.groupBox_tu_1.setTitle(_translate("MainWindow", "模式"))
+        self.tu_auto.setText(_translate("MainWindow", "自动战斗"))
+        self.tu_shoudong.setText(_translate("MainWindow", "手动战斗"))
 
         self.groupBox_2.setTitle(_translate("MainWindow", "高级选项"))
         self.label_2.setText(_translate("MainWindow", "  画面超时时间(秒)："))
