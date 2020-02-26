@@ -65,7 +65,7 @@ class PassengerExplore(ExploreFight):
                 loc = self.yys.find_game_img('img/TAN-JIANG-LI.png')
                 if loc:
                     # 检查奖励
-                    self.receive_reward()
+                    self.quit_tansuo()
                 else:
                     if self.yys.find_img('img/FIGHT.png'):
                         # 队伍解散 退出副本

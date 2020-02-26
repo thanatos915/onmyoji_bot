@@ -1,6 +1,7 @@
 import ctypes
 import os
 import sys
+from gameLib.game_window import GameWindow
 import time
 
 from PIL import Image
@@ -127,9 +128,13 @@ def is_admin():
 try:
     # 检测管理员权限
     if is_admin():
-        hwnd = win32gui.FindWindow(0, u'阴阳师-网易游戏')
-        crl = DriverExplore(hwnd)
-        crl.unlock_team()
+        # hwds = GameWindow.get_game_hwnd()
+        # print(hwds)
+        # hwnds = GameWindow.get_child_windows(397044)
+        # print(hwnds)
+        crl = PassengerExplore()
+        crl.start()
+            # crl.start()
         # print(num)
         # crl = GameControl(hwnd)
         # loc = crl.find_game_img('img/XUE-TIAO.png', 1, (192, 0), (1050, 210), 0, 0.7)

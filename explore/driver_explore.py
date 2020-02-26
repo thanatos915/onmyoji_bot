@@ -268,8 +268,8 @@ class DriverExplore(ExploreFight):
         self.now_fuben_width = 0
         if is_tansuo and is_fight_boss:
             # 领取奖励
-            self.receive_reward()
-            # self.quit_tansuo()
+            # self.receive_reward()
+            self.quit_tansuo()
 
         if is_tansuo and not is_fight_boss:
             self.log.writeinfo('探索中 退出探索进行下一轮')
@@ -353,13 +353,4 @@ class DriverExplore(ExploreFight):
         return self.now_fuben_width >= self.fuben_max_width
 
     def test(self):
-
-        img_src = cv2.imread('1581758200.2020833.png')
-        res = self.yys.find_img_from_src(img_src, 'img/BOSS.png', 'img/FIGHT.png')
-        print(res)
-        is_fight_boss = False
-        bossLoc = self.yys.find_game_img('img/BOSS.png')
-        if bossLoc:
-            self.fight_monster(bossLoc, (bossLoc[0] + 30, bossLoc[1] + 30), True)
-            print("挑战BOSS")
-            is_fight_boss = True
+        self.yys.window_full_shot()

@@ -345,7 +345,7 @@ class ExploreFight(Fighter):
         """
         解锁阵容
         """
-        if self.yys.find_img('img/gu-ding.pnd'):
+        if self.yys.find_game_img('img/gu-ding.pnd'):
             self.log.writeinfo("检测到阵容已固定，需要解锁")
             self.click_until('解锁阵容', 'img/unlock.png', *TansuoPos.lock_btn, 0.5)
 

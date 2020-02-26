@@ -1,6 +1,10 @@
-Wed, 26 Feb 2020 13:43:04  logsystem.py  [line:20]  INFO  Driver: 绑定窗口成功
-Wed, 26 Feb 2020 13:43:04  logsystem.py  [line:20]  INFO  Driver: 460332
-Wed, 26 Feb 2020 13:43:04  logsystem.py  [line:20]  INFO  Driver: 激活窗口成功
-Wed, 26 Feb 2020 13:43:05  logsystem.py  [line:20]  INFO  检测到阵容已固定，需要解锁
-Wed, 26 Feb 2020 13:43:05  logsystem.py  [line:20]  INFO  Driver: 点击 解锁阵容
-Wed, 26 Feb 2020 13:43:06  logsystem.py  [line:20]  INFO  Driver: 点击 解锁阵容 成功
+Wed, 26 Feb 2020 23:18:43  logsystem.py  [line:20]  INFO  Passenger: 绑定窗口成功
+Wed, 26 Feb 2020 23:18:43  logsystem.py  [line:20]  INFO  Passenger: 462388
+Wed, 26 Feb 2020 23:18:43  logsystem.py  [line:20]  INFO  Passenger: 激活窗口成功
+Wed, 26 Feb 2020 23:18:43  logsystem.py  [line:20]  INFO  Now you mood is level 1
+Wed, 26 Feb 2020 23:18:43  passenger_explore.py  [line:41]  INFO  Passenger: 正在检测当前场景
+Wed, 26 Feb 2020 23:18:57  logsystem.py  [line:20]  INFO  Passenger: 点击 接受探索邀请
+Wed, 26 Feb 2020 23:19:05  logsystem.py  [line:20]  INFO  Passenger: 点击 接受探索邀请 成功
+Wed, 26 Feb 2020 23:19:05  passenger_explore.py  [line:41]  INFO  Passenger: 正在检测当前场景
+Wed, 26 Feb 2020 23:19:08  passenger_explore.py  [line:41]  INFO  Passenger: 正在检测当前场景
+Wed, 26 Feb 2020 23:19:11  passenger_explore.py  [line:41]  INFO  Passenger: 正在检测当前场景
