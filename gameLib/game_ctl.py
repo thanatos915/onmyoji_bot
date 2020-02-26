@@ -191,6 +191,7 @@ class GameControl():
             # cv2.waitKey(0)
             # print(maxVal, maxLoc, img_template_path)
             return maxVal, maxLoc
+
         except:
             return 0, 0
 
@@ -305,6 +306,34 @@ class GameControl():
                                  win32con.MOUSEEVENTF_ABSOLUTE, x, y, 0, 0)
             time.sleep(0.01)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+
+    def mouse_click_img(self, img_template_path, th=0.9):
+
+        img_src = self.window_full_shot(None)
+
+        # 读入文件
+        img_template = cv2.imread(img_template_path, cv2.IMREAD_COLOR)
+
+        try:
+            res = cv2.matchTemplate(
+                img_src, img_template, cv2.TM_CCOEFF_NORMED)
+            minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(res)
+            h, w = img_template.shape[:2]
+            # tl = maxLoc
+            # br = (tl[0] + tw , tl[1] + th)
+            # cv2.rectangle(img_src, tl, br, [255, 0, 0], 2)
+            # cv2.imshow("image", img_src)
+            # cv2.waitKey(0)
+            print(img_template_path, maxVal)
+            if maxVal > th:
+                pos1 = (maxLoc[0] + 5, maxLoc[1] + 5)
+                pos2 = (maxLoc[0] + w - 5, maxLoc[1] + h - 5)
+                self.mouse_click_bg(pos1, pos2)
+                return True
+        except Exception as e:
+            print(e)
+
+        return False
 
     def mouse_click_bg(self, pos, pos_end=None):
         """
@@ -482,6 +511,12 @@ class GameControl():
             win32gui.SendMessage(self.hwnd, win32con.WM_DESTROY, 0, 0)  # 退出游戏
         sys.exit(0)
 
+    def quit_true_game(self):
+
+        # 退出游戏关闭加成
+        win32gui.SendMessage(self.hwnd, win32con.WM_DESTROY, 0, 0)  # 退出游戏
+        sys.exit(0)
+
     def takescreenshot(self):
         '''
         截图
@@ -512,6 +547,7 @@ class GameControl():
         '''
         self.rejectbounty()
         maxVal, maxLoc = self.find_img(img_path, part, pos1, pos2, gray)
+        # print(maxVal)
         if maxVal > tolerance:
             return maxLoc
         else:
@@ -528,7 +564,7 @@ class GameControl():
             :return: 查找成功返回位置坐标，否则返回False
         '''
         maxVal, maxLoc = self.find_multi_img(*img_path)
-        print(maxVal)
+        # print(maxVal)
         for item in maxVal:
             if item > tolerance:
                 return maxLoc

@@ -54,7 +54,7 @@ def firstposition():
     h = 640
     while True:
         position = (random.randint(0, w), random.randint(50, h))
-        if position[0] < 209 or position[0] > 931:
+        if position[0] < 180 or position[0] > 980:
             return position
         elif position[1] < 350 or position[1] > 462:
             return position
@@ -76,7 +76,7 @@ def secondposition():
     '''
 
 def threeposition():
-    return (random.randint(50, 213), random.randint(130, 480))
+    return (random.randint(50, 200), random.randint(130, 480))
 
 
 def mysleep(slpa, slpb=0):

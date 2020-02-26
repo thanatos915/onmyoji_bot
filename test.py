@@ -128,11 +128,8 @@ try:
     # 检测管理员权限
     if is_admin():
         hwnd = win32gui.FindWindow(0, u'阴阳师-网易游戏')
-        crl = GameControl(hwnd)
-        # maxVal, maxLoc = crl.find_multi_img('img/ZI-DONG.png', 'img/DUI.png', 'img/YING-BING.png')
-        img_src = cv2.imread('Temp/1581758200.2020833.png')
-        res = crl.find_img_from_src(img_src, 'img/BOSS.png', 'img/FIGHT.png')
-        print(res)
+        crl = DriverExplore(hwnd)
+        crl.find_exp_moster1()
         # print(num)
         # crl = GameControl(hwnd)
         # loc = crl.find_game_img('img/XUE-TIAO.png', 1, (192, 0), (1050, 210), 0, 0.7)

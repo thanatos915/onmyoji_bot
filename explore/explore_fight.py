@@ -22,12 +22,12 @@ class ExploreFight(Fighter):
         self.level = conf.getint('explore', 'level')
 
         self.isDriver = False
-
         self.gouliang1 = True
         self.gouliang2 = True
         self.gouliang3 = True
         # 式神种类 1:素材 2: N卡 3: R卡
         # self.level =
+
 
     def check_exp_full(self):
         """
@@ -291,7 +291,7 @@ class ExploreFight(Fighter):
         is_tansuo = False
         # 是否在探索中
         is_juexing = False
-        while time.time() - start <= 2.5 and not is_start and not is_juexing and self.run:
+        while time.time() - start <= 3 and not is_start and not is_juexing and self.run:
             maxVal, maxLoc = self.yys.find_multi_img('img/ZHUN-BEI.png', 'img/DUI.png', 'img/YING-BING.png',
                                                  'img/TIAO-ZHAN.png', 'img/YAO-QING.png')
             startVal, teamVal, tanVal, tuVal, yaoqingVal = maxVal
@@ -303,7 +303,7 @@ class ExploreFight(Fighter):
             # 是否在副本中
             is_tansuo = tanVal > 0.9
             # 是否回到章节页面
-            is_juexing = tuVal > 0.9
+            is_juexing = tuVal > 0.95
             # 战斗是否开始
             is_start = startVal > 0.9
             is_yaoqing = yaoqingVal > 0.9
@@ -341,7 +341,6 @@ class ExploreFight(Fighter):
         self.click_until('确认按钮', 'img\\QUE-REN.png',
                          *TansuoPos.confirm_btn, 0.6, False)
 
-
     def wait_game_end(self):
 
         # 游戏已开始
@@ -359,7 +358,6 @@ class ExploreFight(Fighter):
 
 
         self.yys.mouse_click_bg(ut.threeposition())
-
         # 二次结算
         self.yys.mouse_click_bg(ut.firstposition())
         self.click_until('第一次结算', 'img/JIN-BI.png',
@@ -369,4 +367,3 @@ class ExploreFight(Fighter):
 
         #保证游戏结束
         self.yys.mouse_click_bg(ut.threeposition())
-

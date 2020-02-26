@@ -1,6 +1,7 @@
 from gameLib.game_ctl import GameControl
 from tools.logsystem import WriteLog
-from tools.game_pos import TansuoPos
+from tools.game_pos import TansuoPos, CommonPos
+import tools.utilities as ut
 
 import configparser
 import logging
@@ -23,6 +24,7 @@ class Fighter:
         self.emyc = emyc
         self.name = name
         self.run = True
+        self.run_time = time.time();
 
         # 读取配置文件
         conf = configparser.ConfigParser()
@@ -30,6 +32,7 @@ class Fighter:
         quit_game_enable = conf.getboolean('watchdog', 'watchdog_enable')
         self.max_op_time = conf.getint('watchdog', 'max_op_time')
         self.max_win_time = conf.getint('watchdog', 'max_win_time')
+        self.quit_time = conf.getint('watchdog', 'quit_time')
 
         self.team = conf.getboolean('others', 'team')
         self.team_id = conf.getint('others', 'team_id')
@@ -123,7 +126,7 @@ class Fighter:
 
             self.log.writewarning(self.name + '标记式神失败')
 
-    def click_until_multi(self, tag, *img_path, pos , pos_end=None, sleep_time=0.5):
+    def click_until_multi(self, tag, *img_path, pos, pos_end=None, sleep_time=0.5):
         '''
         在某一时间段内，后台点击鼠标，直到出现某些图片出现
             :param tag: 按键名
@@ -285,3 +288,49 @@ class Fighter:
 
                 # 递归
                 self.switch_to_scene(scene)
+
+    def check_quit_game(self):
+
+        if self.quit_time > 0:
+            if time.time() - self.run_time > self.quit_time:
+                # 切换到庭院
+                is_home = False
+                while not is_home:
+                    maxVal, maxLoc = self.yys.find_img('img/JIA-CHENG.png')
+                    print("加成", maxVal)
+                    if maxVal > 0.9:
+                        is_home = True
+                        continue
+
+                    # 检查关闭
+                    if self.yys.mouse_click_img('img/close.png'):
+                        time.sleep(0.3)
+
+                    # 检查返回
+                    if self.yys.mouse_click_img('img/back.png'):
+                        time.sleep(0.5)
+
+                    # 检查确认
+                    if self.yys.mouse_click_img('img/que-ding.png'):
+                        time.sleep(0.3)
+
+                # 关闭加成
+                is_jiacheng = True
+                self.click_until('加成', 'img/yu-hun-jia-cheng.png', *CommonPos.jia_cheng_btn, 0.3)
+
+                while is_jiacheng:
+                    pos = self.yys.find_many_game_img('img/on-jia-cheng.png')
+                    print(pos)
+                    if len(pos) <= 0:
+                        is_jiacheng = False
+                    else:
+                        for item in pos:
+                            pos1 = (item[0] + 8, item[1] + 3)
+                            pos2 = (item[0] + 60, item[1] + 15)
+                            print(pos1, pos2)
+                            self.yys.mouse_click_bg(pos1, pos2)
+                            mood1 = ut.Mood(1)
+                            mood1.moodsleep()
+
+                self.yys.quit_true_game()
+

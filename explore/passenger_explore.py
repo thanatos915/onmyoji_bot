@@ -39,8 +39,12 @@ class PassengerExplore(ExploreFight):
         # 进入脚本循环
         while self.run:
             logging.info(self.name + "正在检测当前场景")
+
+            self.check_quit_game()
+
             # 开始检测当前战斗情况
             is_start, is_team, is_tansuo, is_juexing, is_yaoqing = self.check_now_scene()
+            print('passenger', is_start, is_team, is_juexing, is_yaoqing)
             if is_juexing:
                 # 等待接受邀请
                 if not self.yys.wait_game_img('img/JIE-SHOU.png', 100, False):
@@ -59,13 +63,15 @@ class PassengerExplore(ExploreFight):
                     # 检查奖励
                     self.receive_reward()
                 else:
-                    # 队伍解散 退出副本
-                    self.quit_tansuo()
+                    if self.yys.find_img('img/FIGHT.png'):
+                        # 队伍解散 退出副本
+                        self.quit_tansuo()
 
                 # 退出本次循环
                 continue
 
             if is_start:
+                print('passenger 正在战斗')
                 self.wait_game_end()
 
 def main():

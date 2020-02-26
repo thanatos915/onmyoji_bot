@@ -11,7 +11,7 @@ class FightWay():
 
     def __init__(self, fighter: Fighter):
         self.fighter = fighter
-        self.actions: list[ShishenAction] = []
+        self.actions = []
         self.change_zi_dong = None
 
     def add_action(self, action: ShishenAction):

@@ -4,7 +4,7 @@ class GamePos():
         self.pos_end=pos_end
 
 class CommonPos():
-    second_position = (943, 56), (1111, 452)  # 第二次结算所点击的位置
+    second_position = (943, 80), (1111, 452)  # 第二次结算所点击的位置
     zhunbei_btn = (935, 465), (1080, 530)
     five_num_region = (418, 552), (762, 626) # 获取鬼火数量区域
     shishen_skill_one = (855, 580), (893, 610) # 式神一技能位置
@@ -14,6 +14,8 @@ class CommonPos():
     enemy_region =  (192, 0), (1050, 210) # 地方式神位置
     cha_ji_change_skill_2 = (900, 450), (940, 490)
     cha_ji_change_skill_1 = (1040, 450), (1090, 490)
+    jia_cheng_btn = (360, 40), (388, 70) # 加成位置
+    back_btn = (32, 45), (58, 64)  # 退出副本
 
 class TansuoPos():
     last_chapter = (934, 493), (1108, 572)  # 列表最后一章

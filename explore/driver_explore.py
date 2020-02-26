@@ -37,7 +37,6 @@ class DriverExplore(ExploreFight):
         self.gouliang2 = False
         self.gouliang3 = conf.getboolean('explore', 'driver_gouliang_2')
 
-
     def start(self):
         """
         开始战斗
@@ -45,6 +44,8 @@ class DriverExplore(ExploreFight):
         """
         while self.run:
             logging.info(self.name + "正在检测当前场景")
+
+            self.check_quit_game()
 
             if self.yys.find_game_img('img/JI-XU.png'):
                 self.click_until('继续邀请队友', 'img/JI-XU.png',
@@ -70,6 +71,9 @@ class DriverExplore(ExploreFight):
             if is_tansuo or is_team:
                 self.log.writeinfo(self.name + ' 进入探索页面')
 
+                # 检查是否锁定阵容
+
+
                 # 开始查找经验怪
                 self.find_exp_moster1()
 
@@ -93,14 +97,16 @@ class DriverExplore(ExploreFight):
             templates = ['img/BOSS.png']
 
         res = self.yys.find_img_from_src(img_src, *templates, th=0.96)
-
         if not res:
             time.sleep(1)
             return False
+
         pos1 = (res[0] + pos_start[0], res[1] + pos_start[1])
-        pos2 = (pos1[0] + 15, pos1[1] + 10)
+        # pos2 = (pos1[0] + 10, pos1[1] + 10)
         print("boss位置", pos1, pos2)
-        self.click_until('挑战怪物', 'img/ZHUN-BEI.png', pos1, pos2, 0.8)
+        if not self.click_until('挑战怪物', 'img/ZHUN-BEI.png', pos1, None, 0.4):
+            # is_start = self.yys.find_img()
+            return False
 
         self.wait_game_end()
 
@@ -127,7 +133,14 @@ class DriverExplore(ExploreFight):
                 # 查找怪物
                 guai = []
                 img_template = cv2.imread('img/FIGHT.png')
-                res = cv2.matchTemplate(img_src, img_template, cv2.TM_CCOEFF_NORMED)
+                res = None
+                while res is None:
+                    try:
+                        res = cv2.matchTemplate(img_src, img_template, cv2.TM_CCOEFF_NORMED)
+                    except:
+                        continue
+                # print(res)
+
                 threshold = 0.97
 
                 h, w = img_template.shape[:2]
@@ -149,7 +162,7 @@ class DriverExplore(ExploreFight):
                             prev_x = 60
 
                         if abs(not_exp.get('pos')[0] - x) < prev_x and abs(not_exp.get('pos')[1] - y) < 50 and not_exp.get('times') >= 5:
-                            # print("我跳过了")
+                            print("我跳过了")
                             isContinue = True
                             break
 
@@ -221,7 +234,7 @@ class DriverExplore(ExploreFight):
                         new_posy = y0 + pos[1]
                         if new_posy > item[1] and new_posy - 70 > item[1]:
                             fight_num += 1
-                            self.fight_monster(item, (item[0] + 30, item[1] + 20))
+                            self.fight_monster(item, (item[0] + 20, item[1] + 10))
 
                 if len(guai) < 3:
                     times = 0
@@ -239,7 +252,7 @@ class DriverExplore(ExploreFight):
         is_fight_boss = False
         bossLoc = self.yys.find_game_img('img/BOSS.png')
         if bossLoc:
-            self.fight_monster(bossLoc, (bossLoc[0] + 30, bossLoc[1] + 30), True)
+            self.fight_monster(bossLoc, (bossLoc[0] + 20, bossLoc[1] + 10), True)
             print("挑战BOSS")
             is_fight_boss = True
 
@@ -261,6 +274,8 @@ class DriverExplore(ExploreFight):
 
         if is_tansuo and not is_fight_boss:
             self.log.writeinfo('探索中 退出探索进行下一轮')
+            self.quit_tansuo()
+        elif is_tansuo and not is_fight_boss and is_team and not is_start:
             self.quit_tansuo()
 
         self.log.writeinfo('等待回到章节页面')
