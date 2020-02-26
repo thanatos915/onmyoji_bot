@@ -71,8 +71,7 @@ class DriverExplore(ExploreFight):
             if is_tansuo or is_team:
                 self.log.writeinfo(self.name + ' 进入探索页面')
 
-                # 检查是否锁定阵容
-
+                self.unlock_team();
 
                 # 开始查找经验怪
                 self.find_exp_moster1()

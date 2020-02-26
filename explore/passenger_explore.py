@@ -45,6 +45,10 @@ class PassengerExplore(ExploreFight):
             # 开始检测当前战斗情况
             is_start, is_team, is_tansuo, is_juexing, is_yaoqing = self.check_now_scene()
             print('passenger', is_start, is_team, is_juexing, is_yaoqing)
+
+            if is_tansuo:
+                self.unlock_team()
+
             if is_juexing:
                 # 等待接受邀请
                 if not self.yys.wait_game_img('img/JIE-SHOU.png', 100, False):

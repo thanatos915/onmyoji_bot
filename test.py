@@ -129,7 +129,7 @@ try:
     if is_admin():
         hwnd = win32gui.FindWindow(0, u'阴阳师-网易游戏')
         crl = DriverExplore(hwnd)
-        crl.find_exp_moster1()
+        crl.unlock_team()
         # print(num)
         # crl = GameControl(hwnd)
         # loc = crl.find_game_img('img/XUE-TIAO.png', 1, (192, 0), (1050, 210), 0, 0.7)

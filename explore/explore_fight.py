@@ -341,6 +341,15 @@ class ExploreFight(Fighter):
         self.click_until('确认按钮', 'img\\QUE-REN.png',
                          *TansuoPos.confirm_btn, 0.6, False)
 
+    def unlock_team(self):
+        """
+        解锁阵容
+        """
+        if self.yys.find_img('img/gu-ding.pnd'):
+            self.log.writeinfo("检测到阵容已固定，需要解锁")
+            self.click_until('解锁阵容', 'img/unlock.png', *TansuoPos.lock_btn, 0.5)
+
+
     def wait_game_end(self):
 
         # 游戏已开始
